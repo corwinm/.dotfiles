@@ -2,15 +2,24 @@
 
 Ensure `stow` is installed:
 
+MacOS:
+
 ```sh
 brew install stow
+```
+
+Ubuntu:
+
+```sh
+sudo apt install stow
 ```
 
 Run `stow` for all dotfiles:
 
 ```sh
-stow -R zsh
-stow -R tmux
-stow -R nvim
-stow -R wezterm
+stow zsh
+stow tmux
+stow nvim
+stow wezterm
+```
 
