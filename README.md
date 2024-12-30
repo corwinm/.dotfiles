@@ -21,5 +21,6 @@ stow zsh
 stow tmux
 stow nvim
 stow wezterm
+stow ghostty
 ```
 

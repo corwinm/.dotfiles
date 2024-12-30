@@ -1,0 +1,11 @@
+font-size = 16.0 
+theme = catppuccin-macchiato
+
+macos-titlebar-style = hidden
+mouse-hide-while-typing = true
+
+confirm-close-surface = false
+window-decoration = true
+window-padding-x = 4
+window-padding-y = 12,0
+window-padding-balance = true
