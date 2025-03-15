@@ -148,3 +148,5 @@ export PATH="$HOME/go/bin:$PATH"
 # Local config
 [[ -f ~/.zsh_local ]] && source ~/.zsh_local
 
+
+. "$HOME/.local/bin/env"
