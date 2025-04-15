@@ -1,5 +1,11 @@
 # .dotfiles
 
+Init git submodules:
+
+```sh
+git submodule update --init --recursive
+```
+
 Ensure `stow` is installed:
 
 MacOS:
