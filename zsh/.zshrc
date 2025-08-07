@@ -118,6 +118,11 @@ alias vim=nvim
 # VIM Mode
 bindkey -v
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude node_modules'
+export FZF_DEFAULT_OPTS="--style full --preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}'"
+
 if [ -f "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ]; then
   export NVM_DIR="$HOME/.nvm"
     [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
