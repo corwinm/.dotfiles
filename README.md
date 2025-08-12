@@ -26,6 +26,7 @@ Run `stow` for all dotfiles:
 stow zsh
 stow tmux
 stow nvim
+stow sesh
 stow wezterm
 stow ghostty
 ```
