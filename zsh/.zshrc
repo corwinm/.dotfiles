@@ -121,7 +121,8 @@ bindkey -v
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude node_modules'
-export FZF_DEFAULT_OPTS="--style full --preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}'"
+# export FZF_DEFAULT_OPTS="--style full --preview 'fzf-preview.sh {}' --bind 'focus:transform-header:file --brief {}'"
+export FZF_DEFAULT_OPTS="--style full --preview 'fzf-preview.sh {}'"
 
 # Set up zoxide
 eval "$(zoxide init zsh)"
