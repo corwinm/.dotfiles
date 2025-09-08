@@ -10,6 +10,14 @@ Ensure `stow` is installed:
 
 MacOS:
 
+Install everything
+```sh
+brew bundle
+```
+
+Or just stow
+
+
 ```sh
 brew install stow
 ```
