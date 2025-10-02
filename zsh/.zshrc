@@ -7,6 +7,22 @@ fi
 alias lg=lazygit
 alias vim=nvim
 
+# Neovim config
+alias nvc='nvim ~/.config/nvim'
+
+# Zsh config and reload
+function zshrc {
+  ${EDITOR:-nvim} ~/.zshrc
+  source ~/.zshrc
+}
+
+# LS Aliases from ohmyzsh
+alias l='ls -lFh'     #size,show type,human readable
+alias la='ls -lAFh'   #long list,show almost all,show type,human readable
+alias lr='ls -tRFh'   #sorted by date,recursive,show type,human readable
+alias lt='ls -ltFh'   #long list,sorted by date,show type,human readable
+alias ll='ls -l'      #long list
+
 # VIM Mode
 bindkey -v
 
@@ -17,6 +33,8 @@ export FZF_DEFAULT_OPTS="--style full --preview 'fzf-preview.sh {}'"
 
 # Set up zoxide
 eval "$(zoxide init zsh)"
+# Use zoxide for cd
+alias cd=z
 
 if [ -f "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ]; then
   export NVM_DIR="$HOME/.nvm"
