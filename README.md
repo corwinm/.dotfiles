@@ -6,6 +6,12 @@ Init git submodules:
 git submodule update --init --recursive
 ```
 
+Update git to always pull submodules
+
+```sh
+git config submodule.recurse true
+```
+
 Ensure `stow` is installed:
 
 MacOS:
