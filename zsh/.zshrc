@@ -6,6 +6,7 @@ fi
 
 alias lg=lazygit
 alias vim=nvim
+alias v='nvim'
 
 # Neovim config
 alias nvc='nvim ~/.config/nvim'
@@ -25,6 +26,46 @@ alias ll='ls -l'      #long list
 
 # VIM Mode
 bindkey -v
+export KEYTIMEOUT=1
+
+# Use nvim to edit command line in vi mode
+export EDITOR='nvim'
+autoload edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd 'v' edit-command-line
+
+# Change cursor shape in vi mode
+export VI_MODE_SET_CURSOR=true
+
+function zle-keymap-select {
+  if [[ $KEYMAP == vicmd ]] ; then
+    echo -ne '\e[2 q'  # block cursor
+  else
+    echo -ne '\e[6 q'  # beam cursor
+  fi
+}
+zle -N zle-keymap-select
+
+function zle-line-init {
+  echo -ne '\e[6 q'  # beam cursor
+}
+zle -N zle-line-init
+
+# Use system clipboard for copy/paste
+function vi-yank-clipboard() {
+  zle vi-yank
+  echo "$CUTBUFFER" | pbcopy
+}
+zle -N vi-yank-clipboard
+bindkey -M vicmd 'y' vi-yank-clipboard
+
+# Yank whole line to system clipboard
+function yi-yank-line-clipboard() {
+  zle vi-yank-line
+  echo "$CUTBUFFER" | pbcopy
+}
+zle -N yi-yank-line-clipboard
+bindkey -M vicmd 'Y' yi-yank-line-clipboard
 
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
