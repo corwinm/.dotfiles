@@ -1,5 +1,6 @@
 font-size = 16.0 
 theme = catppuccin macchiato
+maximize = true
 
 macos-titlebar-style = transparent
 mouse-hide-while-typing = true
