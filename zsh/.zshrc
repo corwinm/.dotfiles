@@ -32,7 +32,7 @@ export KEYTIMEOUT=1
 export EDITOR='nvim'
 autoload edit-command-line
 zle -N edit-command-line
-bindkey -M vicmd 'v' edit-command-line
+bindkey -M vicmd '^v' edit-command-line
 
 # Change cursor shape in vi mode
 export VI_MODE_SET_CURSOR=true
