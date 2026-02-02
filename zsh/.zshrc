@@ -7,6 +7,7 @@ fi
 alias lg=lazygit
 alias vim=nvim
 alias v='nvim'
+alias oc=opencode
 
 # Neovim config
 alias nvc='nvim ~/.config/nvim'
