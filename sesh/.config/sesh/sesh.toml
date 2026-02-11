@@ -1,3 +1,2 @@
 [default_session]
-startup_command = "nvim ."
-
+startup_command = "tmux split-window -h 'command -v opencode >/dev/null 2>&1 && opencode || exec ${SHELL:-/bin/zsh} -l' && nvim ."

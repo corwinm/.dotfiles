@@ -121,6 +121,8 @@ bindkey -M emacs '\es' sesh-sessions
 bindkey -M vicmd '\es' sesh-sessions
 bindkey -M viins '\es' sesh-sessions
 
+bindkey -s '^g' 'sesh connect $(arashi list | fzf)\n'
+
 # Local config
 [[ -f ~/.zsh_local ]] && source ~/.zsh_local
 
