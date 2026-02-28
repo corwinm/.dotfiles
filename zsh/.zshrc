@@ -1,3 +1,10 @@
+# OPENSPEC:START
+# OpenSpec shell completions configuration
+fpath=("/Users/corwin/.oh-my-zsh/custom/completions" $fpath)
+autoload -Uz compinit
+compinit
+# OPENSPEC:END
+
 eval "$(ssh-agent -s)" > /dev/null
 
 if [[ "$TERM_PROGRAM" != "vscode" ]]; then
@@ -88,6 +95,9 @@ else
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 fi
 
+# Added by arashi installer
+export PATH="$HOME/.arashi/bin:$PATH"
+
 # bun completions
 [ -s "~/.bun/_bun" ] && source "~/.bun/_bun"
 
@@ -121,8 +131,21 @@ bindkey -M emacs '\es' sesh-sessions
 bindkey -M vicmd '\es' sesh-sessions
 bindkey -M viins '\es' sesh-sessions
 
+# Ctrl-g to open fzf prompt to connect to a sesh session with arashi workspace
 bindkey -s '^g' 'sesh connect $(arashi list | fzf)\n'
 
 # Local config
 [[ -f ~/.zsh_local ]] && source ~/.zsh_local
+
+
+# opencode
+export PATH=/Users/corwin/.opencode/bin:$PATH
+
+# pnpm
+export PNPM_HOME="/Users/corwin/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+# pnpm end
 
