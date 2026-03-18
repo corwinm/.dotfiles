@@ -1,6 +1,6 @@
 # OPENSPEC:START
 # OpenSpec shell completions configuration
-fpath=("/Users/corwin/.oh-my-zsh/custom/completions" $fpath)
+fpath=("$HOME/.zsh/completions" $fpath)
 autoload -Uz compinit
 compinit
 # OPENSPEC:END
@@ -111,8 +111,6 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 # go
 export PATH="$HOME/go/bin:$PATH"
 
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
 # Alt-s to open fzf prompt to connect to a sesh session
 function sesh-sessions() {
   {
@@ -137,15 +135,16 @@ bindkey -s '^g' 'sesh connect $(arashi list | fzf)\n'
 # Local config
 [[ -f ~/.zsh_local ]] && source ~/.zsh_local
 
-
 # opencode
-export PATH=/Users/corwin/.opencode/bin:$PATH
+export PATH="$HOME/.opencode/bin:$PATH"
 
 # pnpm
-export PNPM_HOME="/Users/corwin/Library/pnpm"
+export PNPM_HOME="$HOME/Library/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
 esac
 # pnpm end
 
+# Vite+ bin (https://viteplus.dev)
+. "$HOME/.vite-plus/env"
