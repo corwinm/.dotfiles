@@ -25,6 +25,31 @@ function zshrc {
   source ~/.zshrc
 }
 
+function dev-layout() {
+  local keep_shell=0
+
+  if [[ "$1" == "--keep-shell" ]]; then
+    keep_shell=1
+    shift
+  fi
+
+  if [[ -z "$TMUX" ]]; then
+    printf 'dev-layout must be run inside tmux\n' >&2
+    return 1
+  fi
+
+  local target=${1:-.}
+  local shell=${SHELL:-/bin/zsh}
+  local opencode_cmd="command -v opencode >/dev/null 2>&1 && opencode; exec ${(q)shell} -l"
+
+  tmux split-window -h -c "$PWD" "$opencode_cmd"
+  nvim "$target"
+
+  if (( keep_shell )); then
+    exec "$shell" -l
+  fi
+}
+
 # LS Aliases from ohmyzsh
 alias l='ls -lFh'     #size,show type,human readable
 alias la='ls -lAFh'   #long list,show almost all,show type,human readable
