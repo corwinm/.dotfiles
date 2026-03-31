@@ -173,3 +173,7 @@ esac
 
 # Vite+ bin (https://viteplus.dev)
 . "$HOME/.vite-plus/env"
+
+# >>> arashi shell integration >>>
+eval "$(command arashi shell init zsh)"
+# <<< arashi shell integration <<<
