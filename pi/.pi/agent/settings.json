@@ -1,0 +1,12 @@
+{
+  "defaultProvider": "github-copilot",
+  "defaultModel": "gpt-5.4",
+  "defaultThinkingLevel": "high",
+  "hideThinkingBlock": false,
+  "packages": [
+    "npm:@sherif-fanous/pi-catppuccin"
+  ],
+  "theme": "catppuccin-macchiato",
+  "sessionDir": "~/.local/state/pi/sessions",
+  "lastChangelogVersion": "0.67.2"
+}

@@ -17,12 +17,12 @@ Ensure `stow` is installed:
 MacOS:
 
 Install everything
+
 ```sh
 brew bundle
 ```
 
 Or just stow
-
 
 ```sh
 brew install stow
@@ -43,5 +43,5 @@ stow nvim
 stow sesh
 stow wezterm
 stow ghostty
+stow pi
 ```
-
