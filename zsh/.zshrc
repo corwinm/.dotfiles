@@ -178,3 +178,16 @@ esac
 # >>> arashi shell integration >>>
 eval "$(command arashi shell init zsh)"
 # <<< arashi shell integration <<<
+
+function pi-update() {
+  # Check if vp is installed and install with npm if not
+  if ! command -v vp &> /dev/null; then 
+    echo "vp not found, installing with npm..."
+    npm install -g @mariozechner/pi-coding-agent
+    return
+  fi
+
+  # Update pi-coding-agent with vp
+  echo "Updating pi-coding-agent with vp..."
+  vp install -g @mariozechner/pi-coding-agent
+}
