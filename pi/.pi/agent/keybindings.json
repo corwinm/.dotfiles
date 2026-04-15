@@ -1,3 +1,5 @@
 {
-  "app.model.select": ["alt+l"]
+  "app.model.select": [
+    "ctrl+m"
+  ]
 }
