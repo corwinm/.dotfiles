@@ -8,8 +8,12 @@
     "npm:pi-web-access",
     "npm:pi-subagents",
     "npm:pi-btw",
-    "npm:pi-tmux-focus-cursor"
+    "npm:pi-tmux-focus-cursor",
+    "npm:pi-answer"
   ],
   "theme": "catppuccin-macchiato",
-  "lastChangelogVersion": "0.67.2"
+  "lastChangelogVersion": "0.67.2",
+  "answer": {
+    "extractionModels": []
+  }
 }
