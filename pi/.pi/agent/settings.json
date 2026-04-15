@@ -12,7 +12,7 @@
     "npm:pi-answer"
   ],
   "theme": "catppuccin-macchiato",
-  "lastChangelogVersion": "0.67.2",
+  "lastChangelogVersion": "0.67.3",
   "answer": {
     "extractionModels": []
   }
