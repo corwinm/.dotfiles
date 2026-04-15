@@ -4,7 +4,10 @@
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "packages": [
-    "npm:@sherif-fanous/pi-catppuccin"
+    "npm:@sherif-fanous/pi-catppuccin",
+    "npm:pi-web-access",
+    "npm:pi-subagents",
+    "npm:pi-btw"
   ],
   "theme": "catppuccin-macchiato",
   "sessionDir": "~/.local/state/pi/sessions",
