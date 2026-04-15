@@ -2,4 +2,5 @@
 github-copilot
 pi/.pi/agent/auth.json
 pi/.pi/agent/extensions/opencode-tmux/
+pi/.pi/agent/extensions/coding-agents-tmux/
 
