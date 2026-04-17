@@ -5,7 +5,7 @@ autoload -Uz compinit
 compinit
 # OPENSPEC:END
 
-eval "$(ssh-agent -s)" > /dev/null
+# eval "$(ssh-agent -s)" > /dev/null
 
 if [[ "$TERM_PROGRAM" != "vscode" ]]; then
   eval "$(starship init zsh)"
