@@ -35,7 +35,6 @@ vim.pack.add {
   gh 'mason-org/mason.nvim',
   gh 'mason-org/mason-lspconfig.nvim',
   gh 'WhoIsSethDaniel/mason-tool-installer.nvim',
-  gh 'j-hui/fidget.nvim',
   gh 'rafamadriz/friendly-snippets',
   gh 'L3MON4D3/LuaSnip',
   gh 'saghen/blink.cmp',
@@ -213,8 +212,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 require('mason').setup {}
-
-require('fidget').setup {}
 
 -- LSP
 vim.api.nvim_create_autocmd('LspAttach', {
