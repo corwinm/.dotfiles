@@ -12,8 +12,9 @@
     "npm:pi-answer"
   ],
   "theme": "catppuccin-macchiato",
-  "lastChangelogVersion": "0.67.3",
+  "lastChangelogVersion": "0.67.68",
   "answer": {
     "extractionModels": []
   }
 }
+
