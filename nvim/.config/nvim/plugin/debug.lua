@@ -1,3 +1,5 @@
+-- debug.lua
+--
 -- Lazily load DAP on first use via debug keymaps.
 
 local gh = require('utils').gh
