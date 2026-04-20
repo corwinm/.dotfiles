@@ -9,7 +9,9 @@
     "npm:pi-subagents",
     "npm:pi-btw",
     "npm:pi-tmux-focus-cursor",
-    "npm:pi-answer"
+    "npm:pi-answer",
+    "npm:@haphazarddev/pi-vim-quit",
+    "npm:@haphazarddev/pi-ask-user-question"
   ],
   "theme": "catppuccin-macchiato",
   "lastChangelogVersion": "0.67.68",
@@ -17,4 +19,3 @@
     "extractionModels": []
   }
 }
-
