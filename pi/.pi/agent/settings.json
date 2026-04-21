@@ -11,7 +11,8 @@
     "npm:pi-tmux-focus-cursor",
     "npm:pi-answer",
     "npm:@haphazarddev/pi-vim-quit",
-    "npm:@haphazarddev/pi-ask-user-question"
+    "npm:@haphazarddev/pi-ask-user-question",
+    "npm:@haphazarddev/pi-copy-code-block"
   ],
   "theme": "catppuccin-macchiato",
   "lastChangelogVersion": "0.67.68",
