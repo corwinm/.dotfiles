@@ -16,7 +16,7 @@
     "npm:@haphazarddev/pi-interactive-code-review"
   ],
   "theme": "catppuccin-macchiato",
-  "lastChangelogVersion": "0.67.68",
+  "lastChangelogVersion": "0.68.0",
   "answer": {
     "extractionModels": []
   }
