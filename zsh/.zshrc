@@ -183,11 +183,11 @@ function pi-update() {
   # Check if vp is installed and install with npm if not
   if ! command -v vp &> /dev/null; then 
     echo "vp not found, installing with npm..."
-    npm install -g @mariozechner/pi-coding-agent
+    npm install -g @earendil-works/pi-coding-agent
     return
   fi
 
   # Update pi-coding-agent with vp
   echo "Updating pi-coding-agent with vp..."
-  vp install -g @mariozechner/pi-coding-agent
+  vp install -g @earendil-works/pi-coding-agent
 }
