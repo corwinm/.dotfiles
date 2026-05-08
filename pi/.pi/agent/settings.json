@@ -13,10 +13,11 @@
     "npm:@haphazarddev/pi-vim-quit",
     "npm:@haphazarddev/pi-ask-user-question",
     "npm:@haphazarddev/pi-copy-code-block",
-    "npm:@haphazarddev/pi-interactive-code-review"
+    "npm:@haphazarddev/pi-interactive-code-review",
+    "npm:@gotgenes/pi-permission-system"
   ],
   "theme": "catppuccin-macchiato",
-  "lastChangelogVersion": "0.68.1",
+  "lastChangelogVersion": "0.74.0",
   "answer": {
     "extractionModels": []
   }
