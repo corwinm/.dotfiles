@@ -7,3 +7,4 @@ pi/.pi/agent/extensions/opencode-tmux/
 pi/.pi/agent/extensions/coding-agents-tmux/
 pi/.pi/agent/extensions/*/logs/
 
+nvim/.config/go/telemetry/local
