@@ -102,8 +102,15 @@ zle -N yi-yank-line-clipboard
 bindkey -M vicmd 'Y' yi-yank-line-clipboard
 
 # Set up fzf key bindings and fuzzy completion
-source <(fzf --zsh)
-export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude node_modules'
+[[ -d ~/.fzf/bin ]] && export PATH="$PATH:$HOME/.fzf/bin"
+source <(fzf --zsh) 2>/dev/null
+
+if command -v fd >/dev/null 2>&1; then
+  export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git --exclude node_modules'
+elif command -v fdfind >/dev/null 2>&1; then
+  export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --exclude .git --exclude node_modules'
+fi
+
 export FZF_DEFAULT_OPTS="--style full --preview 'fzf-preview.sh {}'"
 
 # Set up zoxide
@@ -193,3 +200,4 @@ function pi-update() {
   vp install -g @earendil-works/pi-coding-agent
   pi update
 }
+

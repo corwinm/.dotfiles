@@ -19,7 +19,14 @@ brew install stow
 Ubuntu:
 
 ```sh
-sudo apt install stow
+sudo apt install stow fd-find
+```
+
+Install a current version of `fzf` from git instead of Ubuntu apt, since the apt version can be too old for this zsh config:
+
+```sh
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+~/.fzf/install
 ```
 
 Run `stow` for all dotfiles:
