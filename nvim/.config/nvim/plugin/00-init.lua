@@ -37,6 +37,8 @@ vim.pack.add {
   gh 'WhoIsSethDaniel/mason-tool-installer.nvim',
   gh 'rafamadriz/friendly-snippets',
   gh 'L3MON4D3/LuaSnip',
+  gh 'saghen/blink.compat',
+  gh 'saghen/blink.lib',
   gh 'saghen/blink.cmp',
   gh 'b0o/SchemaStore.nvim',
   gh 'neovim/nvim-lspconfig',
