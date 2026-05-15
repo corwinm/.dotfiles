@@ -54,10 +54,10 @@ vim.pack.add {
 
 require('luarocks-nvim').setup()
 
-vim.cmd.colorscheme 'catppuccin-macchiato'
 require('catppuccin').setup {
   transparent_background = true,
 }
+vim.cmd.colorscheme 'catppuccin-macchiato'
 
 require('guess-indent').setup {}
 
@@ -147,9 +147,7 @@ vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect T
 vim.keymap.set({ 'n', 'v' }, '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>sg', function()
   builtin.live_grep {
-    additional_args = function()
-      return { '--hidden', '--glob', '!**/.git/*' }
-    end,
+    additional_args = function() return { '--hidden', '--glob', '!**/.git/*' } end,
   }
 end, { desc = '[S]earch by [G]rep' })
 vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
