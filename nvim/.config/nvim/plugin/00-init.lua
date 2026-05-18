@@ -60,8 +60,33 @@ require('catppuccin').setup {
     light = 'latte',
     dark = 'macchiato',
   },
+  custom_highlights = function(colors)
+    if vim.o.background == 'light' then
+      return {
+        -- Latte's blue (#1e66f5) is very vivid; lavender (#7287fd) is softer
+        MiniStatuslineModeNormal = { fg = colors.crust, bg = colors.lavender, style = { 'bold' } },
+        Directory = { fg = colors.lavender },
+      }
+    end
+    return {}
+  end,
 }
 vim.cmd.colorscheme 'catppuccin-nvim'
+
+-- Sync background with macOS system theme whenever Neovim gains focus
+vim.api.nvim_create_autocmd('FocusGained', {
+  callback = function()
+    local handle = io.popen('defaults read -g AppleInterfaceStyle 2>/dev/null')
+    if handle then
+      local result = handle:read '*a'
+      handle:close()
+      local bg = result:match 'Dark' and 'dark' or 'light'
+      if vim.o.background ~= bg then
+        vim.o.background = bg
+      end
+    end
+  end,
+})
 
 require('guess-indent').setup {}
 
