@@ -15,6 +15,7 @@ vim.api.nvim_create_autocmd('FileType', {
     require('render-markdown').setup {
       file_types = { 'markdown' },
       latex = { enabled = false },
+      html = { comment = { conceal = false } },
     }
   end,
 })
