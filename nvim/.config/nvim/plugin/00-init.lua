@@ -76,14 +76,12 @@ vim.cmd.colorscheme 'catppuccin-nvim'
 -- Sync background with macOS system theme whenever Neovim gains focus
 vim.api.nvim_create_autocmd('FocusGained', {
   callback = function()
-    local handle = io.popen('defaults read -g AppleInterfaceStyle 2>/dev/null')
+    local handle = io.popen 'defaults read -g AppleInterfaceStyle 2>/dev/null'
     if handle then
       local result = handle:read '*a'
       handle:close()
       local bg = result:match 'Dark' and 'dark' or 'light'
-      if vim.o.background ~= bg then
-        vim.o.background = bg
-      end
+      if vim.o.background ~= bg then vim.o.background = bg end
     end
   end,
 })
@@ -604,6 +602,7 @@ local configTreeSitter = function()
     'luadoc',
     'markdown',
     'markdown_inline',
+    'yaml',
     'python',
     'rust',
     'tsx',
