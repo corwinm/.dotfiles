@@ -1,5 +1,5 @@
 font-size = 16.0 
-theme = Catppuccin Macchiato
+theme = dark:Catppuccin Macchiato,light:Catppuccin Latte
 maximize = true
 
 macos-titlebar-style = transparent

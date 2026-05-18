@@ -13,10 +13,11 @@
     "npm:@haphazarddev/pi-ask-user-question",
     "npm:@haphazarddev/pi-copy-code-block",
     "npm:@haphazarddev/pi-interactive-code-review",
-    "npm:@gotgenes/pi-permission-system"
+    "npm:@gotgenes/pi-permission-system",
+    "npm:pi-system-theme"
   ],
   "theme": "catppuccin-macchiato",
-  "lastChangelogVersion": "0.74.0",
+  "lastChangelogVersion": "0.75.3",
   "answer": {
     "extractionModels": []
   }
