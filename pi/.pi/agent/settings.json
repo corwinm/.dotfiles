@@ -7,7 +7,6 @@
     "npm:@sherif-fanous/pi-catppuccin",
     "npm:pi-web-access",
     "npm:pi-subagents",
-    "npm:pi-btw",
     "npm:pi-tmux-focus-cursor",
     "npm:@haphazarddev/pi-vim-quit",
     "npm:@haphazarddev/pi-ask-user-question",
@@ -16,7 +15,7 @@
     "npm:@gotgenes/pi-permission-system",
     "npm:pi-system-theme"
   ],
-  "theme": "catppuccin-macchiato",
+  "theme": "catppuccin-latte",
   "lastChangelogVersion": "0.75.3",
   "answer": {
     "extractionModels": []
