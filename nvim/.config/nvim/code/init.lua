@@ -1,3 +1,8 @@
+-- Remove the default nvim config dir from runtimepath so that
+-- plugin/*.lua files from the main config are not auto-sourced.
+vim.opt.runtimepath:remove(vim.fn.stdpath 'config')
+vim.opt.runtimepath:remove(vim.fn.stdpath 'config' .. '/after')
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -62,10 +67,8 @@ vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
-vim.opt.inccommand = 'split'
-
--- Show which line your cursor is on
-vim.opt.cursorline = true
+-- NOTE: 'split' doesn't render in VSCode; use 'nosplit' for inline preview.
+vim.opt.inccommand = 'nosplit'
 
 -- Minimal number of screen lines to keep above and below the cursor.
 vim.opt.scrolloff = 10
@@ -75,23 +78,12 @@ vim.o.tabstop = 4
 vim.o.softtabstop = 4
 vim.o.shiftwidth = 4
 
-vim.g.skip_ts_context_commentstring_module = true
-
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
-
--- Diagnostic keymaps
--- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-
--- TIP: Disable arrow keys in normal mode
--- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
--- vim.keymap.set('n', '<right>', '<cmd>echo "Use l to move!!"<CR>')
--- vim.keymap.set('n', '<up>', '<cmd>echo "Use k to move!!"<CR>')
--- vim.keymap.set('n', '<down>', '<cmd>echo "Use j to move!!"<CR>')
 
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
@@ -109,9 +101,10 @@ vim.keymap.set('n', '<C-l>', function()
   require('vscode').action 'workbench.action.focusRightGroup'
 end, { desc = 'Move focus to the right window' })
 
--- Remap for dealing with word wrap
-vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+-- Use display-line motion always: navigates soft-wrapped lines and skips
+-- VSCode-folded regions (which Neovim still sees as real buffer lines).
+vim.keymap.set('n', 'j', 'gj', { silent = true, noremap = true })
+vim.keymap.set('n', 'k', 'gk', { silent = true, noremap = true })
 
 -- Not Sure what I like best here
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
@@ -136,15 +129,11 @@ vim.keymap.set({ 'n', 'v' }, '<leader>d', [["_d]], { desc = '[d]elete _' })
 
 vim.keymap.set('n', '<leader>w', '<cmd>w<CR>', { desc = '[w]rite file' })
 
--- Code folding
-vim.api.nvim_set_keymap('n', 'j', 'gj', { noremap = false, silent = true })
-vim.api.nvim_set_keymap('n', 'k', 'gk', { noremap = false, silent = true })
-
 local vscode = require 'vscode'
 
 local function mapVSCodeCall(mode, lhs, rhs)
   vim.keymap.set(mode, lhs, function()
-    vscode.call(rhs)
+    vscode.action(rhs)
   end, { silent = true, noremap = true })
 end
 
@@ -157,7 +146,7 @@ mapVSCodeCall('n', '<leader>zo', 'editor.unfold')
 mapVSCodeCall('n', '<leader>zO', 'editor.unfoldRecursively')
 mapVSCodeCall('n', '<leader>za', 'editor.toggleFold')
 
--- Remap folding keys
+-- Fold keys without <leader>
 mapVSCodeCall('n', 'zM', 'editor.foldAll')
 mapVSCodeCall('n', 'zR', 'editor.unfoldAll')
 mapVSCodeCall('n', 'zc', 'editor.fold')
@@ -169,3 +158,5 @@ mapVSCodeCall('n', 'za', 'editor.toggleFold')
 -- FindItFaster
 mapVSCodeCall('n', '<leader>sf', 'find-it-faster.findFiles')
 mapVSCodeCall('n', '<leader>sg', 'find-it-faster.findWithinFiles')
+
+vim.notify('✅ VSCode Neovim config loaded', vim.log.levels.INFO)
