@@ -16,8 +16,5 @@
     "npm:pi-system-theme"
   ],
   "theme": "catppuccin-latte",
-  "lastChangelogVersion": "0.75.3",
-  "answer": {
-    "extractionModels": []
-  }
+  "lastChangelogVersion": "0.75.5"
 }
