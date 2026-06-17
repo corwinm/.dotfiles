@@ -41,7 +41,7 @@ function dev-layout() {
   local target=${1:-.}
   local shell=${SHELL:-/bin/zsh}
   # local opencode_cmd="command -v opencode >/dev/null 2>&1 && opencode; exec ${(q)shell} -l"
-  local agent_cmd="command -v pi >/dev/null 2>&1 && pi; exec ${(q)shell} -l"
+  local agent_cmd="${(q)shell} -ic 'command -v pi >/dev/null 2>&1 && pi; exec ${(q)shell} -l'"
 
   tmux split-window -h -c "$PWD" "$agent_cmd"
   nvim "$target"
