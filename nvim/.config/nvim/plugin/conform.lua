@@ -49,6 +49,7 @@ require('conform').setup {
     css = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
     markdown = { 'oxfmt', 'prettierd', 'prettier', stop_after_first = true },
     go = { 'goimports', 'gofumpt' },
+    cs = { 'csharpier' },
   },
 }
 

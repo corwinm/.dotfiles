@@ -43,6 +43,7 @@ local function load_dap()
     ensure_installed = {
       'delve',
       'js-debug-adapter',
+      'netcoredbg',
     },
   }
 
@@ -78,6 +79,28 @@ local function load_dap()
       -- On Windows delve must be run attached or it crashes.
       -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
       detached = vim.fn.has 'win32' == 0,
+    },
+  }
+
+  -- .NET / C# debugging via netcoredbg (installed by mason-nvim-dap above).
+  dap.adapters.coreclr = {
+    type = 'executable',
+    command = 'netcoredbg',
+    args = { '--interpreter=vscode' },
+  }
+
+  dap.configurations.cs = {
+    {
+      type = 'coreclr',
+      name = 'Launch - netcoredbg',
+      request = 'launch',
+      program = function() return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/bin/Debug/', 'file') end,
+    },
+    {
+      type = 'coreclr',
+      name = 'Attach - netcoredbg',
+      request = 'attach',
+      processId = require('dap.utils').pick_process,
     },
   }
 

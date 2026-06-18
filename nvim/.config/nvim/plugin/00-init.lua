@@ -244,7 +244,14 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-require('mason').setup {}
+require('mason').setup {
+  registries = {
+    'github:mason-org/mason-registry',
+    -- Provides the `roslyn` package (Roslyn LSP, bundles `.razorExtensions`
+    -- for Razor/Blazor co-hosting). Used by roslyn.nvim (see plugin/dotnet.lua).
+    'github:Crashdummyy/mason-registry',
+  },
+}
 
 -- LSP
 vim.api.nvim_create_autocmd('LspAttach', {
@@ -484,6 +491,8 @@ local servers = {
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
   'stylua', -- Used to format Lua code
+  'roslyn', -- C#/.NET LSP (from the Crashdummyy registry), wired up in plugin/dotnet.lua
+  'csharpier', -- C# formatter, used by conform (see plugin/conform.lua)
 })
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
@@ -597,6 +606,8 @@ local configTreeSitter = function()
     'cpp',
     'css',
     'html',
+    'c_sharp',
+    'razor',
     'go',
     'lua',
     'luadoc',
