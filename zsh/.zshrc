@@ -192,6 +192,7 @@ function pi-update() {
     echo "vp not found, installing with npm..."
     npm install -g @earendil-works/pi-coding-agent
     pi update
+    pi update --extensions
     return
   fi
 
@@ -199,6 +200,7 @@ function pi-update() {
   echo "Updating pi-coding-agent with vp..."
   vp install -g @earendil-works/pi-coding-agent
   pi update
+  pi update --extensions
 }
 
 
