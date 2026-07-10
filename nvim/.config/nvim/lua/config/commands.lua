@@ -34,7 +34,8 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 local function pack_prune_candidates()
-  local candidates = vim.iter(vim.pack.get())
+  local candidates = vim
+    .iter(vim.pack.get())
     :filter(function(plugin) return not plugin.active end)
     :map(function(plugin)
       return {
@@ -84,8 +85,10 @@ vim.api.nvim_create_user_command('PackPrune', function()
     if choice == 2 then
       local names = vim.tbl_map(function(candidate) return candidate.name end, candidates)
       local confirm = vim.fn.confirm(
-        ('Delete %d vim.pack candidate(s)?\n\n%s\n\nReview carefully: lazy plugins can appear here before they are added in the current session.')
-          :format(#names, table.concat(names, ', ')),
+        ('Delete %d vim.pack candidate(s)?\n\n%s\n\nReview carefully: lazy plugins can appear here before they are added in the current session.'):format(
+          #names,
+          table.concat(names, ', ')
+        ),
         '&Delete\n&Cancel',
         2
       )
@@ -97,8 +100,11 @@ vim.api.nvim_create_user_command('PackPrune', function()
     local candidate = candidates[choice - 2]
     if candidate then
       local confirm = vim.fn.confirm(
-        ('Delete %s?\n\nsrc: %s\npath: %s\n\nReview carefully: lazy plugins can appear here before they are added in the current session.')
-          :format(candidate.name, candidate.src or 'unknown', candidate.path or 'unknown'),
+        ('Delete %s?\n\nsrc: %s\npath: %s\n\nReview carefully: lazy plugins can appear here before they are added in the current session.'):format(
+          candidate.name,
+          candidate.src or 'unknown',
+          candidate.path or 'unknown'
+        ),
         '&Delete\n&Keep',
         2
       )
@@ -123,8 +129,9 @@ vim.api.nvim_create_user_command('PackPruneAll', function()
 
   local names = vim.tbl_map(function(candidate) return candidate.name end, candidates)
   local confirm = vim.fn.confirm(
-    ('Delete all inactive vim.pack plugin candidates?\n\n%s\n\nReview carefully: lazy plugins can appear here before they are added in the current session.')
-      :format(table.concat(names, ', ')),
+    ('Delete all inactive vim.pack plugin candidates?\n\n%s\n\nReview carefully: lazy plugins can appear here before they are added in the current session.'):format(
+      table.concat(names, ', ')
+    ),
     '&Delete\n&Cancel',
     2
   )
@@ -132,4 +139,8 @@ vim.api.nvim_create_user_command('PackPruneAll', function()
   if confirm == 1 then delete_pack_plugins(names) end
 end, {
   desc = 'Delete all inactive vim.pack plugin candidates from disk',
+})
+
+vim.api.nvim_create_user_command('PackUpdate', function() vim.pack.update() end, {
+  desc = 'Update all vim.pack plugins',
 })
