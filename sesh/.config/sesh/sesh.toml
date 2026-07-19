@@ -1,2 +1,2 @@
 [default_session]
-startup_command = "/bin/zsh -ic 'dev-layout --keep-shell'"
+startup_command = "nvim ."
