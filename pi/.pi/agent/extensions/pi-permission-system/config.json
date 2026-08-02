@@ -1,9 +1,31 @@
 {
+  "$schema": "https://raw.githubusercontent.com/gotgenes/pi-packages/main/packages/pi-permission-system/schemas/permissions.schema.json",
   "permission": {
     "*": "allow",
+    "path": {
+      "*": "allow",
+      "*.env": "deny",
+      "*.env.*": "deny",
+      "*.env.example": "allow",
+      "~/.ssh/*": "deny",
+      "~/.aws/*": "deny",
+      "~/.gnupg/*": "deny",
+      "~/.config/gh/hosts.yml": "deny",
+      "~/.npmrc": "deny",
+      "~/.netrc": "deny"
+    },
     "bash": {
+      "*": "allow",
+      "rm -r *": "ask",
       "rm -rf *": "deny",
-      "sudo *": "ask"
+      "rm -fr *": "deny",
+      "sudo *": "ask",
+      "git reset --hard*": "ask",
+      "git clean -f*": "ask",
+      "chmod -R *": "ask",
+      "chown -R *": "ask",
+      "mkfs*": "deny",
+      "diskutil erase*": "deny"
     },
     "external_directory": {
       "*": "ask",
