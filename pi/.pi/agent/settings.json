@@ -12,6 +12,7 @@
     "npm:@haphazarddev/pi-ask-user-question",
     "npm:@haphazarddev/pi-copy-code-block",
     "npm:@haphazarddev/pi-interactive-code-review",
+    "npm:@haphazarddev/pi-background-bash",
     "npm:@gotgenes/pi-permission-system",
     "npm:pi-system-theme"
   ],
