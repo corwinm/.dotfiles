@@ -12,5 +12,11 @@
       "/var/folders/*": "allow",
       "/private/var/folders/*": "allow"
     }
+  },
+  "shellTools": {
+    "background_bash_start": {
+      "commandArgument": "command",
+      "workdirArgument": "cwd"
+    }
   }
 }
