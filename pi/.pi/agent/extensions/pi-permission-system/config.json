@@ -17,8 +17,8 @@
     "bash": {
       "*": "allow",
       "rm -r *": "ask",
-      "rm -rf *": "deny",
-      "rm -fr *": "deny",
+      "rm -rf *": "ask",
+      "rm -fr *": "ask",
       "sudo *": "ask",
       "git reset --hard*": "ask",
       "git clean -f*": "ask",
