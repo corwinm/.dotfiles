@@ -40,3 +40,13 @@ stow wezterm
 stow ghostty
 stow pi
 ```
+
+## macOS settings
+
+Apply the preferred macOS Dock settings on a new Mac:
+
+```sh
+./scripts/macos-defaults.sh
+```
+
+The script removes the Dock's auto-hide delay and shortens its auto-hide animation. It restarts the Dock so the changes take effect immediately.
