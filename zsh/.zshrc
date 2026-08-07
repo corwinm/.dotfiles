@@ -184,6 +184,7 @@ esac
 
 # >>> arashi shell integration >>>
 eval "$(command arashi shell init zsh)"
+source <(command arashi completion zsh)
 # <<< arashi shell integration <<<
 
 function pi-update() {
