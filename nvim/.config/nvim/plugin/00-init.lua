@@ -491,8 +491,8 @@ local servers = {
 local ensure_installed = vim.tbl_keys(servers or {})
 vim.list_extend(ensure_installed, {
   'stylua', -- Used to format Lua code
-  'roslyn', -- C#/.NET LSP (from the Crashdummyy registry), wired up in plugin/dotnet.lua
-  'csharpier', -- C# formatter, used by conform (see plugin/conform.lua)
+  -- 'roslyn', -- C#/.NET LSP (from the Crashdummyy registry), wired up in plugin/dotnet.lua
+  -- 'csharpier', -- C# formatter, used by conform (see plugin/conform.lua)
 })
 require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
