@@ -8,6 +8,7 @@ pi/.pi/agent/sessions/
 pi/.pi/agent/extensions/opencode-tmux/
 pi/.pi/agent/extensions/coding-agents-tmux/
 pi/.pi/agent/extensions/*/logs/
+pi/.pi/web-search-cache/
 .pi-subagents/artifacts/
 
 nvim/.config/go/telemetry/local
