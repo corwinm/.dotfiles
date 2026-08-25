@@ -17,7 +17,7 @@
     "npm:pi-system-theme"
   ],
   "theme": "catppuccin-macchiato",
-  "lastChangelogVersion": "0.83.0",
+  "lastChangelogVersion": "0.84.3",
   "subagents": {
     "defaultThinking": "medium",
     "agentOverrides": {
