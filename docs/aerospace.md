@@ -28,7 +28,7 @@ The programmable keyboard supplies Hyper as Command+Option+Control+Shift.
 | Hyper+A | ChatGPT |
 | Hyper+S | Slack |
 | Hyper+O | Microsoft Outlook |
-| Hyper+E | Microsoft Teams |
+| Hyper+C | Microsoft Teams |
 | Hyper+1…9 | Switch workspace |
 | Hyper+W | Enter window-management mode |
 

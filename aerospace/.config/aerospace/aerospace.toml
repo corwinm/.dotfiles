@@ -33,7 +33,7 @@ cmd-alt-ctrl-shift-a = 'exec-and-forget open -a "ChatGPT"'
 # Work apps. These bindings are harmless when the apps are not installed.
 cmd-alt-ctrl-shift-s = 'exec-and-forget open -a "Slack"'
 cmd-alt-ctrl-shift-o = 'exec-and-forget open -a "Microsoft Outlook"'
-cmd-alt-ctrl-shift-e = 'exec-and-forget open -a "Microsoft Teams"'
+cmd-alt-ctrl-shift-c = 'exec-and-forget open -a "Microsoft Teams"'
 
 # Enter a temporary mode so window management does not consume more Hyper keys.
 cmd-alt-ctrl-shift-w = 'mode window'
