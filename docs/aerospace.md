@@ -20,15 +20,15 @@ The programmable keyboard supplies Hyper as Command+Option+Control+Shift.
 
 | Shortcut | Action |
 | --- | --- |
-| Hyper+G | Ghostty |
-| Hyper+C | Google Chrome |
+| Hyper+T | Ghostty |
+| Hyper+B | Google Chrome |
 | Hyper+D | Discord |
 | Hyper+M | Messages |
 | Hyper+V | Visual Studio Code |
 | Hyper+A | ChatGPT |
 | Hyper+S | Slack |
 | Hyper+O | Microsoft Outlook |
-| Hyper+T | Microsoft Teams |
+| Hyper+E | Microsoft Teams |
 | Hyper+1…9 | Switch workspace |
 | Hyper+W | Enter window-management mode |
 
