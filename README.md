@@ -39,7 +39,11 @@ stow sesh
 stow wezterm
 stow ghostty
 stow pi
+# Optional AeroSpace experiment
+stow aerospace
 ```
+
+See [`docs/aerospace.md`](docs/aerospace.md) for the trial bindings and setup notes.
 
 ## macOS settings
 
