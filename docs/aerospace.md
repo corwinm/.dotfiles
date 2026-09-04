@@ -47,8 +47,8 @@ In window-management mode:
 ## Useful tuning points
 
 - Change the app letters or remove the work-app bindings.
-- Change `8`-pixel gaps or set them to `0`.
-- Try `accordion` as `default-root-container-layout`.
+- Change the `8`-pixel inner and outer gaps or set them to `0`.
+- Accordion is the default layout, with `accordion-padding = 0` so adjacent windows do not remain visible at the left and right edges. Increase the padding if you want those visual window hints.
 - Add `on-window-detected` rules only after deciding which apps should always follow particular workspaces. Starting without routing makes the trial easier to understand and undo.
 - Set `start-at-login = true` after the experiment becomes the preferred setup.
 

@@ -6,10 +6,10 @@ config-version = 2
 start-at-login = false
 auto-reload-config = true
 
-# Start with conventional tiling and a little visual separation.
-default-root-container-layout = 'tiles'
+# Use accordion by default without exposing adjacent windows at the sides.
+default-root-container-layout = 'accordion'
 default-root-container-orientation = 'auto'
-accordion-padding = 30
+accordion-padding = 0
 
 persistent-workspaces = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 
