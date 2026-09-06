@@ -2,24 +2,37 @@
 # Hyper means cmd+alt+ctrl+shift, emitted by the programmable keyboard.
 config-version = 2
 
-# Keep this opt-in until the setup feels comfortable.
-start-at-login = false
+# Start AeroSpace automatically and reload this file when it changes.
+start-at-login = true
 auto-reload-config = true
 
-# Use accordion by default without exposing adjacent windows at the sides.
+# Use a left-to-right accordion without exposing adjacent windows at the sides.
 default-root-container-layout = 'accordion'
-default-root-container-orientation = 'auto'
+default-root-container-orientation = 'horizontal'
 accordion-padding = 0
 
 persistent-workspaces = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 
+# Keep 1–5 on the macOS main display. Put 6–9 on the second display when
+# attached, falling back to the main display when only one is available.
+[workspace-to-monitor-force-assignment]
+1 = 'main'
+2 = 'main'
+3 = 'main'
+4 = 'main'
+5 = 'main'
+6 = ['secondary', 'main']
+7 = ['secondary', 'main']
+8 = ['secondary', 'main']
+9 = ['secondary', 'main']
+
 [gaps]
 inner.horizontal = 8
 inner.vertical = 8
-outer.left = 8
-outer.bottom = 8
-outer.top = 8
-outer.right = 8
+outer.left = 0
+outer.bottom = 0
+outer.top = 0
+outer.right = 0
 
 [mode.main.binding]
 # Raycast-style app launch/focus shortcuts.
@@ -81,12 +94,12 @@ tab = 'workspace-back-and-forth'
 8 = 'workspace 8'
 9 = 'workspace 9'
 
-shift-1 = 'move-node-to-workspace 1'
-shift-2 = 'move-node-to-workspace 2'
-shift-3 = 'move-node-to-workspace 3'
-shift-4 = 'move-node-to-workspace 4'
-shift-5 = 'move-node-to-workspace 5'
-shift-6 = 'move-node-to-workspace 6'
-shift-7 = 'move-node-to-workspace 7'
-shift-8 = 'move-node-to-workspace 8'
-shift-9 = 'move-node-to-workspace 9'
+shift-1 = ['move-node-to-workspace 1', 'workspace 1']
+shift-2 = ['move-node-to-workspace 2', 'workspace 2']
+shift-3 = ['move-node-to-workspace 3', 'workspace 3']
+shift-4 = ['move-node-to-workspace 4', 'workspace 4']
+shift-5 = ['move-node-to-workspace 5', 'workspace 5']
+shift-6 = ['move-node-to-workspace 6', 'workspace 6']
+shift-7 = ['move-node-to-workspace 7', 'workspace 7']
+shift-8 = ['move-node-to-workspace 8', 'workspace 8']
+shift-9 = ['move-node-to-workspace 9', 'workspace 9']
