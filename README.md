@@ -39,11 +39,12 @@ stow sesh
 stow wezterm
 stow ghostty
 stow pi
-# Optional AeroSpace experiment
+# Optional AeroSpace + workspace status bar
 stow aerospace
+stow sketchybar
 ```
 
-See [`docs/aerospace.md`](docs/aerospace.md) for the trial bindings and setup notes.
+See [`docs/aerospace.md`](docs/aerospace.md) for the trial bindings, SketchyBar integration, and setup notes.
 
 ## macOS settings
 
@@ -53,4 +54,4 @@ Apply the preferred macOS Dock settings on a new Mac:
 ./scripts/macos-defaults.sh
 ```
 
-The script removes the Dock's auto-hide delay and shortens its auto-hide animation. It restarts the Dock so the changes take effect immediately.
+The script removes the Dock's auto-hide delay, shortens its auto-hide animation, and automatically hides the native menu bar so it does not overlap SketchyBar. It restarts the affected system processes so the changes take effect immediately.

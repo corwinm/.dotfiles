@@ -11,7 +11,11 @@ fi
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.15
 
-# Restart the Dock once so both changes take effect.
-killall Dock
+# Keep the native menu bar hidden so it does not overlap SketchyBar.
+defaults write NSGlobalDomain _HIHideMenuBar -bool true
 
-echo "macOS Dock defaults applied."
+# Restart affected system processes so the changes take effect immediately.
+killall Dock
+killall SystemUIServer
+
+echo "macOS Dock and menu bar defaults applied."

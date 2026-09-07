@@ -6,6 +6,13 @@ config-version = 2
 start-at-login = true
 auto-reload-config = true
 
+# Run SketchyBar with AeroSpace and tell it when the focused workspace changes.
+# SketchyBar ignores this startup command when it is already running.
+after-startup-command = ['exec-and-forget sketchybar']
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+]
+
 # Use a left-to-right accordion without exposing adjacent windows at the sides.
 default-root-container-layout = 'accordion'
 default-root-container-orientation = 'horizontal'
@@ -34,13 +41,15 @@ on-window-detected = [
 8 = ['secondary', 'main']
 9 = ['secondary', 'main']
 
+# macOS already reserves the menu-bar region used by SketchyBar. Match its 8px
+# margin around the screen, with 4px of extra clearance below the bar.
 [gaps]
-inner.horizontal = 8
-inner.vertical = 8
-outer.left = 0
-outer.bottom = 0
-outer.top = 0
-outer.right = 0
+inner.horizontal = 6
+inner.vertical = 6
+outer.left = 8
+outer.bottom = 8
+outer.top = 12
+outer.right = 8
 
 [mode.main.binding]
 # App launch/focus shortcuts.
@@ -61,7 +70,10 @@ cmd-alt-ctrl-shift-o = 'exec-and-forget open -a "Microsoft Outlook"'
 cmd-alt-ctrl-shift-c = 'exec-and-forget open -a "Microsoft Teams"'
 
 # Enter a temporary mode so window management does not consume more Hyper keys.
-cmd-alt-ctrl-shift-w = 'mode window'
+cmd-alt-ctrl-shift-w = [
+    'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=window',
+    'mode window',
+]
 
 # Fast workspace switching.
 cmd-alt-ctrl-shift-1 = 'workspace 1'
@@ -76,7 +88,10 @@ cmd-alt-ctrl-shift-9 = 'workspace 9'
 
 # Press Hyper+W, use as many commands as needed, then Escape.
 [mode.window.binding]
-esc = 'mode main'
+esc = [
+    'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main',
+    'mode main',
+]
 
 h = 'focus left'
 j = 'focus down'
@@ -87,6 +102,11 @@ shift-h = 'move left'
 shift-j = 'move down'
 shift-k = 'move up'
 shift-l = 'move right'
+
+ctrl-h = 'join-with left'
+ctrl-j = 'join-with down'
+ctrl-k = 'join-with up'
+ctrl-l = 'join-with right'
 
 minus = 'resize smart -50'
 equal = 'resize smart +50'

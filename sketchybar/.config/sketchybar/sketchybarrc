@@ -1,0 +1,282 @@
+#!/usr/bin/env bash
+
+# Inspired by CriticalElement/dotfiles, adapted from yabai Spaces to
+# AeroSpace workspaces.
+BLUE=0xff1e6e77
+ORANGE=0xffcc7b6e
+PINK=0xffd7448a
+RED=0xffce3a5b
+GREEN=0xff638989
+PURPLE=0xff8c6bc8
+CREAM=0xffd3cdc5
+WHITE=0xffffffff
+PILL=0xeb1e1e2e
+POPUP=0xff1e1e2e
+TRANSPARENT=0x00000000
+FONT="Liga SFMono Nerd Font"
+
+# Leave the wallpaper visible between independent status capsules.
+sketchybar --bar \
+  height=54 \
+  margin=8 \
+  y_offset=-4 \
+  notch_width=200 \
+  padding_left=0 \
+  padding_right=0 \
+  color="$TRANSPARENT" \
+  shadow=off \
+  sticky=on
+
+sketchybar --default \
+  updates=when_shown \
+  icon.font="$FONT:Normal:14.0" \
+  icon.color="$WHITE" \
+  label.font="$FONT:Normal:14.0" \
+  label.color="$WHITE" \
+  background.color="$PILL" \
+  background.corner_radius=15 \
+  background.height=30 \
+  background.border_width=1 \
+  icon.padding_left=12 \
+  icon.padding_right=4 \
+  label.padding_left=4 \
+  label.padding_right=12
+
+sketchybar --add event aerospace_workspace_change
+sketchybar --add event aerospace_mode_change
+# Show only populated workspaces (plus the focused workspace when empty).
+# A divider separates personal workspaces 1–5 from work workspaces 6–9.
+workspace_items=(aerospace_mode)
+
+# Keep one fixed-width mode slot before the workspace numbers. A colored dot is
+# the normal state and W indicates window mode, so surrounding items never move.
+sketchybar --add item aerospace_mode left \
+  --subscribe aerospace_mode aerospace_mode_change \
+  --set aerospace_mode \
+    width=dynamic \
+    padding_left=4 \
+    padding_right=0 \
+    updates=on \
+    icon="●" \
+    icon.color="$GREEN" \
+    icon.align=center \
+    icon.width=26 \
+    icon.padding_left=0 \
+    icon.padding_right=0 \
+    label.drawing=off \
+    background.drawing=off \
+    update_freq=2 \
+    script="$CONFIG_DIR/plugins/aerospace_mode.sh"
+
+for sid in $(aerospace list-workspaces --all); do
+  if [[ "$sid" == "6" ]]; then
+    workspace_items+=(workspace_separator)
+    sketchybar --add item workspace_separator left \
+      --set workspace_separator \
+        width=1 \
+        icon.drawing=off \
+        label.drawing=off \
+        background.color="$CREAM" \
+        background.height=18 \
+        background.corner_radius=0 \
+        background.border_width=0 \
+        background.drawing=on
+  fi
+
+  item="space.$sid"
+  workspace_items+=("$item")
+  sketchybar --add item "$item" left \
+    --set "$item" \
+      drawing=off \
+      padding_left=2 \
+      padding_right=2 \
+      icon="$sid" \
+      icon.drawing=on \
+      icon.font="$FONT:Normal:14.0" \
+      icon.align=center \
+      icon.width=26 \
+      icon.padding_left=0 \
+      icon.padding_right=0 \
+      label.drawing=off \
+      background.color="$BLUE" \
+      background.height=22 \
+      background.corner_radius=11 \
+      background.border_width=0 \
+      background.drawing=off \
+      click_script="aerospace workspace $sid"
+done
+
+sketchybar --add bracket workspaces "${workspace_items[@]}" \
+  --set workspaces \
+    background.color="$PILL" \
+    background.corner_radius=15 \
+    background.height=30 \
+    background.border_width=1 \
+    background.border_color="$PINK" \
+    background.drawing=on
+
+# A single hidden watcher updates all workspace items in one pass.
+sketchybar --add item workspace_watcher left \
+  --subscribe workspace_watcher aerospace_workspace_change \
+  --set workspace_watcher \
+    drawing=off \
+    updates=on \
+    update_freq=2 \
+    script="$CONFIG_DIR/plugins/aerospace.sh"
+
+# Keep the fixed workspace strip first so app-name width changes cannot move it.
+sketchybar --add item front_app left \
+  --subscribe front_app front_app_switched \
+  --set front_app \
+    padding_left=4 \
+    padding_right=4 \
+    icon.drawing=off \
+    label.max_chars=38 \
+    label.padding_left=12 \
+    label.padding_right=12 \
+    background.border_color="$CREAM" \
+    background.drawing=on \
+    script="$CONFIG_DIR/plugins/front_app.sh"
+
+# Independent outlined status capsules mirror the reference configuration.
+# Right-side items are declared from the outside inward.
+sketchybar --add item time right \
+  --set time \
+    padding_left=2 \
+    padding_right=2 \
+    icon="󱑎" \
+    icon.color="$PURPLE" \
+    background.border_color="$PURPLE" \
+    background.drawing=on \
+    update_freq=10 \
+    click_script="$CONFIG_DIR/plugins/notification_center.sh" \
+    script="$CONFIG_DIR/plugins/clock.sh"
+
+sketchybar --add item date right \
+  --set date \
+    padding_left=2 \
+    padding_right=2 \
+    icon="󱨰" \
+    icon.color="$GREEN" \
+    background.border_color="$GREEN" \
+    background.drawing=on \
+    popup.align=right \
+    popup.height=22 \
+    popup.background.color="$POPUP" \
+    popup.background.corner_radius=10 \
+    popup.background.border_width=1 \
+    popup.background.border_color="$GREEN" \
+    update_freq=30 \
+    click_script="$CONFIG_DIR/plugins/calendar.sh toggle" \
+    script="$CONFIG_DIR/plugins/date.sh"
+
+for row in {0..7}; do
+  sketchybar --add item "calendar.$row" popup.date \
+    --set "calendar.$row" \
+      width=178 \
+      icon.drawing=off \
+      label.font="$FONT:Normal:13.0" \
+      label.width=160 \
+      label.align=left \
+      label.padding_left=9 \
+      label.padding_right=9 \
+      background.drawing=off \
+      script="$CONFIG_DIR/plugins/calendar.sh" \
+    --subscribe "calendar.$row" mouse.scrolled
+done
+
+# Dismiss the popup after the pointer leaves the calendar or bar.
+sketchybar --subscribe calendar.0 mouse.exited.global
+
+sketchybar --add item volume right \
+  --subscribe volume volume_change mouse.clicked mouse.scrolled \
+  --set volume \
+    padding_left=2 \
+    padding_right=2 \
+    icon="󰕾" \
+    icon.color="$ORANGE" \
+    background.border_color="$ORANGE" \
+    background.drawing=on \
+    script="$CONFIG_DIR/plugins/volume.sh"
+
+sketchybar --add item battery right \
+  --subscribe battery power_source_change system_woke \
+  --set battery \
+    padding_left=2 \
+    padding_right=2 \
+    icon="" \
+    icon.color="$RED" \
+    background.border_color="$RED" \
+    background.drawing=on \
+    update_freq=20 \
+    click_script="open 'x-apple.systempreferences:com.apple.Battery-Settings.extension'" \
+    script="$CONFIG_DIR/plugins/battery.sh"
+
+# This pill appears only while Time Machine is actively backing up.
+sketchybar --add item time_machine right \
+  --set time_machine \
+    drawing=off \
+    updates=on \
+    padding_left=2 \
+    padding_right=2 \
+    icon="󰁯" \
+    icon.color="$BLUE" \
+    background.border_color="$BLUE" \
+    background.drawing=on \
+    update_freq=15 \
+    click_script="$CONFIG_DIR/plugins/time_machine.sh" \
+    script="$CONFIG_DIR/plugins/time_machine.sh"
+
+# Warn only when neither Wi-Fi nor a physical Ethernet interface is active.
+sketchybar --add item network_offline right \
+  --subscribe network_offline system_woke wifi_change \
+  --set network_offline \
+    drawing=off \
+    updates=on \
+    padding_left=2 \
+    padding_right=2 \
+    icon="󰤭" \
+    icon.color="$ORANGE" \
+    label="Offline" \
+    background.border_color="$ORANGE" \
+    background.drawing=on \
+    update_freq=10 \
+    click_script="open 'x-apple.systempreferences:com.apple.Network-Settings.extension'" \
+    script="$CONFIG_DIR/plugins/network.sh"
+
+# Native CoreAudio/CoreMediaIO checks drive conditional privacy pills.
+sketchybar --add item camera_active right \
+  --set camera_active \
+    drawing=off \
+    padding_left=2 \
+    padding_right=2 \
+    icon="󰄀" \
+    icon.color="$GREEN" \
+    label="Camera" \
+    background.border_color="$GREEN" \
+    background.drawing=on
+
+sketchybar --add item microphone_active right \
+  --set microphone_active \
+    drawing=off \
+    padding_left=2 \
+    padding_right=2 \
+    icon="󰍬" \
+    icon.color="$ORANGE" \
+    label="Mic" \
+    background.border_color="$ORANGE" \
+    background.drawing=on
+
+sketchybar --add item privacy_watcher right \
+  --set privacy_watcher \
+    drawing=off \
+    updates=on \
+    update_freq=2 \
+    script="$CONFIG_DIR/plugins/privacy.sh"
+
+focused_workspace="$(aerospace list-workspaces --focused)"
+current_mode="$(aerospace list-modes --current)"
+sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$focused_workspace"
+sketchybar --trigger aerospace_mode_change MODE="$current_mode"
+sketchybar --hotload on
+sketchybar --update

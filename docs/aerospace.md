@@ -6,13 +6,29 @@ This is a deliberately conservative starting point for trying AeroSpace without 
 
 ```sh
 brew install --cask nikitabobko/tap/aerospace
-stow aerospace
+brew tap FelixKratz/formulae
+brew trust --formula FelixKratz/formulae/sketchybar
+brew install sketchybar
+stow aerospace sketchybar
+brew services start sketchybar
 open -a AeroSpace
 ```
 
 Grant AeroSpace the macOS Accessibility permission when prompted. The configuration enables `start-at-login`; set it to `false` in `aerospace/.config/aerospace/aerospace.toml` if you want to keep startup manual.
 
 AeroSpace also accepts the stowed XDG path at `~/.config/aerospace/aerospace.toml`. Make sure `~/.aerospace.toml` does not also exist, because AeroSpace reports multiple configs as ambiguous.
+
+## SketchyBar status
+
+The stowed SketchyBar configuration shows the active application and populated AeroSpace workspaces on the left. The focused workspace remains visible even when empty, and a divider separates workspaces 1–5 from 6–9. Click a workspace number to switch to it. A fixed mode slot in the workspace pill shows a green dot normally and a red `W` in window-management mode, without shifting the layout. The right side shows battery, volume, date, and time; a Time Machine progress pill appears only while a backup is running, an Offline warning appears when neither Wi-Fi nor Ethernet is active, and microphone/camera pills appear only while those devices are in use. Click volume to mute or unmute and scroll it to adjust the level. Battery and Offline open their System Settings pages, the date toggles a mini calendar, and the time opens macOS Notification Center. The Notification Center action uses UI scripting and requires Accessibility access for SketchyBar in System Settings. The Homebrew service starts the bar at login, while AeroSpace's startup command is a safe fallback and its custom event keeps the workspace state up to date.
+
+After changing the bar configuration, reload it with:
+
+```sh
+sketchybar --reload
+```
+
+SketchyBar detects an existing process, so the Homebrew service and AeroSpace startup fallback will not create duplicate bars.
 
 ## Bindings
 
@@ -40,6 +56,7 @@ In window-management mode:
 
 - `H/J/K/L` focuses adjacent windows.
 - `Shift+H/J/K/L` rearranges the focused window.
+- `Control+H/J/K/L` joins the focused window with its neighbor in that direction, creating a nested container.
 - `-` and `=` resize.
 - `/` switches the workspace root to tiles and changes its orientation; `,` switches it to accordion.
 - `F` toggles the focused window between floating and tiled.
@@ -55,7 +72,7 @@ In window-management mode:
 - Workspaces 6–9 use the secondary display when exactly two displays are attached and fall back to the main display otherwise.
 - New Chrome windows move to workspace 1; Ghostty windows move to 2; Discord, Messages, and ChatGPT windows move to 3; and Slack, Outlook, and Teams windows move to 6.
 - Apps without a routing rule, including Finder and Preview, open in the current workspace.
-- Inner gaps remain at 8 pixels; outer screen-edge gaps are disabled.
+- Inner gaps are 6 pixels. Outer gaps are 8 pixels, with a 12-pixel top gap for extra clearance below SketchyBar; macOS already reserves the menu-bar region itself.
 
 ## Useful tuning points
 
@@ -63,4 +80,4 @@ In window-management mode:
 - Increase `accordion-padding` if you want visual hints for adjacent windows.
 - Adjust the `on-window-detected` rules as the workspace assignments evolve.
 
-To back out, quit AeroSpace and run `stow -D aerospace` from the repository.
+To back out, quit AeroSpace and SketchyBar, then run `stow -D aerospace sketchybar` from the repository.
