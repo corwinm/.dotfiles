@@ -1,17 +1,32 @@
 #!/usr/bin/env bash
 
 # Inspired by CriticalElement/dotfiles, adapted from yabai Spaces to
-# AeroSpace workspaces.
-BLUE=0xff1e6e77
-ORANGE=0xffcc7b6e
-PINK=0xffd7448a
-RED=0xffce3a5b
-GREEN=0xff638989
-PURPLE=0xff8c6bc8
-CREAM=0xffd3cdc5
-WHITE=0xffffffff
-PILL=0xeb1e1e2e
-POPUP=0xff1e1e2e
+# AeroSpace workspaces. Select matching Catppuccin colors for the current
+# macOS appearance each time SketchyBar loads.
+if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
+  BLUE=0xff1e6e77
+  ORANGE=0xffcc7b6e
+  PINK=0xffd7448a
+  RED=0xffce3a5b
+  GREEN=0xff638989
+  PURPLE=0xff8c6bc8
+  CREAM=0xffd3cdc5
+  TEXT=0xffffffff
+  PILL=0xeb1e1e2e
+  POPUP=0xff1e1e2e
+else
+  BLUE=0xff1e66f5
+  ORANGE=0xfffe640b
+  PINK=0xffea76cb
+  RED=0xffd20f39
+  GREEN=0xff40a02b
+  PURPLE=0xff8839ef
+  CREAM=0xff5c5f77
+  TEXT=0xff4c4f69
+  PILL=0xeee6e9ef
+  POPUP=0xffeff1f5
+fi
+WHITE="$TEXT"
 TRANSPARENT=0x00000000
 FONT="Liga SFMono Nerd Font"
 
@@ -44,6 +59,14 @@ sketchybar --default \
 
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_mode_change
+sketchybar --add event system_appearance_changed AppleInterfaceThemeChangedNotification
+
+sketchybar --add item appearance_watcher left \
+  --subscribe appearance_watcher system_appearance_changed \
+  --set appearance_watcher \
+    drawing=off \
+    updates=on \
+    script="$CONFIG_DIR/plugins/appearance.sh"
 # Show only populated workspaces (plus the focused workspace when empty).
 # A divider separates personal workspaces 1–5 from work workspaces 6–9.
 workspace_items=(aerospace_mode)

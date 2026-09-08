@@ -6,10 +6,16 @@ left_visible=false
 right_visible=false
 args=()
 
+if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
+  inactive_color=0xffffffff
+else
+  inactive_color=0xff4c4f69
+fi
+
 for sid in {1..9}; do
   visible=off
   background=off
-  icon_color=0xffffffff
+  icon_color="$inactive_color"
 
   if [[ "$sid" == "$focused" ]] || grep -Fxq "$sid" <<< "$populated"; then
     visible=on
@@ -22,6 +28,7 @@ for sid in {1..9}; do
 
   if [[ "$sid" == "$focused" ]]; then
     background=on
+    icon_color=0xffffffff
   fi
 
   args+=(--set "space.$sid" \

@@ -65,12 +65,21 @@ month_title="$(date -j -f '%m %Y' "$month $year" '+%B %Y')"
 today="$(date '+%-d')"
 current_month="$(date '+%m')"
 current_year="$(date '+%Y')"
-args=(--set calendar.0 label="$month_title" label.align=center label.color=0xffd3cdc5)
+if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
+  title_color=0xffd3cdc5
+  day_color=0xffffffff
+  today_color=0xffd7448a
+else
+  title_color=0xff5c5f77
+  day_color=0xff4c4f69
+  today_color=0xffea76cb
+fi
+args=(--set calendar.0 label="$month_title" label.align=center label.color="$title_color")
 row=1
 
 # cal's own month heading is replaced by the title above.
 while IFS= read -r line && (( row < 8 )); do
-  color=0xffffffff
+  color="$day_color"
 
   # BSD cal pads every line with two trailing spaces. Remove that padding so
   # the visible 20-column grid is genuinely centered in the popup.
@@ -82,7 +91,7 @@ while IFS= read -r line && (( row < 8 )); do
       for (i = 1; i <= count; i++) if (days[i] == today) exit 0
       exit 1
     }'; then
-      color=0xffd7448a
+      color="$today_color"
     fi
   fi
 
@@ -93,7 +102,7 @@ while IFS= read -r line && (( row < 8 )); do
 done < <(cal "$month" "$year" | tail -n +2)
 
 while (( row < 8 )); do
-  args+=(--set "calendar.$row" drawing=off label="" label.color=0xffffffff)
+  args+=(--set "calendar.$row" drawing=off label="" label.color="$day_color")
   ((row += 1))
 done
 
