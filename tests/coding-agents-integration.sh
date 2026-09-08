@@ -9,6 +9,7 @@ trap 'rm -rf "$tmp_dir"' EXIT
 cat >"$tmp_dir/coding-agents-tmux" <<'EOF'
 #!/usr/bin/env bash
 [[ "${FAKE_CLI_FAIL:-0}" == 0 ]] || exit 1
+command -v node >/dev/null
 printf '%s\n' "$FAKE_STATUS_JSON"
 EOF
 chmod +x "$tmp_dir/coding-agents-tmux"
@@ -26,7 +27,8 @@ EOF
 chmod +x "$tmp_dir/defaults"
 
 SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
-  PATH="$tmp_dir:$PATH" \
+  PATH="$tmp_dir:/usr/bin:/bin" \
+  CODING_AGENTS_TMUX_NODE_BIN="$(command -v node)" \
   FAKE_STATUS_JSON='{"mode":"summary","total":2,"busy":0,"waiting":1,"running":0,"idle":1,"new":0,"unknown":0,"tone":"waiting","summary":"agents waiting"}' \
   CODING_AGENTS_TMUX_BIN="$tmp_dir/coding-agents-tmux" \
   SKETCHYBAR_BIN="$tmp_dir/sketchybar" \
