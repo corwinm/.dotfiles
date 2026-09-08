@@ -20,7 +20,9 @@ AeroSpace also accepts the stowed XDG path at `~/.config/aerospace/aerospace.tom
 
 ## SketchyBar status
 
-The stowed SketchyBar configuration updates its Catppuccin-inspired light and dark palettes in place with the macOS appearance, without reloading the bar. It shows the active application and populated AeroSpace workspaces on the left. The focused workspace remains visible even when empty, and a divider separates workspaces 1–5 from 6–9. Click a workspace number to switch to it. A fixed mode slot in the workspace pill shows a green dot normally and a red `W` in window-management mode, without shifting the layout. The right side shows battery, volume, date, and time; a Time Machine progress pill appears only while a backup is running, an Offline warning appears when neither Wi-Fi nor Ethernet is active, and microphone/camera pills appear only while those devices are in use. Click volume to mute or unmute and scroll it to adjust the level. Battery and Offline open their System Settings pages, the date toggles a mini calendar, and the time opens macOS Notification Center. The Notification Center action uses UI scripting and requires Accessibility access for SketchyBar in System Settings. The Homebrew service starts the bar at login, while AeroSpace's startup command is a safe fallback and its custom event keeps the workspace state up to date.
+The stowed SketchyBar configuration updates its Catppuccin-inspired light and dark palettes in place with the macOS appearance, without reloading the bar. It shows the active application and populated AeroSpace workspaces on the left. The focused workspace remains visible even when empty, and a divider separates workspaces 1–5 from 6–9. Click a workspace number to switch to it. A fixed mode slot in the workspace pill shows a green dot normally and a red `W` in window-management mode, without shifting the layout. The right side shows coding-agent state, battery, volume, date, and time; a Time Machine progress pill appears only while a backup is running, an Offline warning appears when neither Wi-Fi nor Ethernet is active, and microphone/camera pills appear only while those devices are in use. Agent state is pushed to SketchyBar by the generic `@coding-agents-tmux-notify-command` hook rather than polled. Clicking it focuses workspace 2 and opens the agent chooser in the most recently active attached tmux client. Click volume to mute or unmute and scroll it to adjust the level. Battery and Offline open their System Settings pages, the date toggles a mini calendar, and the time opens macOS Notification Center. The Notification Center action uses UI scripting and requires Accessibility access for SketchyBar in System Settings. The Homebrew service starts the bar at login, while AeroSpace's startup command is a safe fallback and its custom event keeps the workspace state up to date.
+
+The agent status and launcher require a version of `coding-agents-tmux` that supports `status --summary --json`, `popup --client auto`, and `@coding-agents-tmux-notify-command`. Until that version is installed, the status item stays hidden.
 
 After changing the bar configuration, reload it with:
 
@@ -46,6 +48,8 @@ The programmable keyboard supplies Hyper as Command+Option+Control+Shift.
 | Hyper+P | Bitwarden |
 | Hyper+F | Finder |
 | Hyper+R | Preview |
+| Hyper+G | Focus workspace 2 and open the coding-agent chooser |
+| Hyper+Q | Focus workspace 2 and open agents waiting for input |
 | Hyper+L | Slack |
 | Hyper+O | Microsoft Outlook |
 | Hyper+C | Microsoft Teams |

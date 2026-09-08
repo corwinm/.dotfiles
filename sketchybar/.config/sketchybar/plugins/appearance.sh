@@ -60,3 +60,4 @@ sketchybar "${args[@]}"
 "$CONFIG_DIR/plugins/aerospace.sh"
 NAME=aerospace_mode "$CONFIG_DIR/plugins/aerospace_mode.sh"
 "$CONFIG_DIR/plugins/calendar.sh" render
+NAME=coding-agents "$CONFIG_DIR/plugins/coding_agents.sh"

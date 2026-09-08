@@ -59,6 +59,7 @@ sketchybar --default \
 
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_mode_change
+sketchybar --add event coding_agents_changed
 sketchybar --add event system_appearance_changed AppleInterfaceThemeChangedNotification
 
 sketchybar --add item appearance_watcher left \
@@ -297,9 +298,23 @@ sketchybar --add item privacy_watcher right \
     update_freq=2 \
     script="$CONFIG_DIR/plugins/privacy.sh"
 
+# Agent state is event-driven by coding-agents-tmux. Clicking focuses Ghostty's
+# workspace and opens the chooser in the most recently active tmux client.
+sketchybar --add item coding-agents right \
+  --subscribe coding-agents coding_agents_changed \
+  --set coding-agents \
+    padding_left=2 \
+    padding_right=2 \
+    icon.drawing=off \
+    background.drawing=on \
+    updates=on \
+    click_script="CODING_AGENTS_TMUX_FOCUS_COMMAND='aerospace workspace 2' '$HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-popup.sh'" \
+    script="$CONFIG_DIR/plugins/coding_agents.sh"
+
 focused_workspace="$(aerospace list-workspaces --focused)"
 current_mode="$(aerospace list-modes --current)"
 sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$focused_workspace"
 sketchybar --trigger aerospace_mode_change MODE="$current_mode"
+NAME=coding-agents "$CONFIG_DIR/plugins/coding_agents.sh"
 sketchybar --hotload on
 sketchybar --update

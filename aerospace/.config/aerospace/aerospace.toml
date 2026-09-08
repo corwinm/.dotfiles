@@ -64,6 +64,17 @@ cmd-alt-ctrl-shift-p = 'exec-and-forget open -a "Bitwarden"'
 cmd-alt-ctrl-shift-f = 'exec-and-forget open -a "Finder"'
 cmd-alt-ctrl-shift-r = 'exec-and-forget open -a "Preview"'
 
+# Focus the terminal workspace and open the coding-agent chooser in its most
+# recently active attached tmux client. Hyper+Q filters to agents waiting on us.
+cmd-alt-ctrl-shift-g = [
+    'workspace 2',
+    'exec-and-forget /bin/bash -lc "$HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-popup.sh"',
+]
+cmd-alt-ctrl-shift-q = [
+    'workspace 2',
+    'exec-and-forget /bin/bash -lc "$HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-popup.sh --waiting"',
+]
+
 # Work apps. These bindings are harmless when the apps are not installed.
 cmd-alt-ctrl-shift-l = 'exec-and-forget open -a "Slack"'
 cmd-alt-ctrl-shift-o = 'exec-and-forget open -a "Microsoft Outlook"'
