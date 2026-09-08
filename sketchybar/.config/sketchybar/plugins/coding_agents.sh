@@ -2,6 +2,11 @@
 
 set -euo pipefail
 
+# SketchyBar may start without a locale. Match the upstream integration so tmux
+# preserves the CLI's tab-delimited machine output.
+export LANG="${LANG:-en_US.UTF-8}"
+export LC_CTYPE="${LC_CTYPE:-en_US.UTF-8}"
+
 CLI="${CODING_AGENTS_TMUX_BIN:-$HOME/.tmux/plugins/coding-agents-tmux/bin/coding-agents-tmux}"
 SKETCHYBAR="${SKETCHYBAR_BIN:-sketchybar}"
 ITEM_NAME="${NAME:-coding-agents}"
@@ -50,6 +55,19 @@ fi
 tone="${parsed%%$'\t'*}"
 summary="${parsed#*$'\t'}"
 
+# Split the summary prefix into SketchyBar's icon slot so the robot and status
+# glyphs can be centered and padded independently instead of sharing one label.
+icon_drawing=off
+icon=""
+label="$summary"
+label_padding_left=10
+if [[ "$summary" == *" | "* ]]; then
+  icon_drawing=on
+  icon="${summary%% | *}"
+  label="${summary#* | }"
+  label_padding_left=0
+fi
+
 if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
   BLUE=0xff1e6e77
   ORANGE=0xffcc7b6e
@@ -71,6 +89,9 @@ esac
 
 "$SKETCHYBAR" --set "$ITEM_NAME" \
   drawing=on \
-  label="$summary" \
+  icon.drawing="$icon_drawing" \
+  icon="$icon" \
+  label="$label" \
+  label.padding_left="$label_padding_left" \
   label.color="$color" \
   background.border_color="$color"

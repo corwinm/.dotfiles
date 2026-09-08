@@ -17,6 +17,7 @@ defaults write com.apple.dock autohide-time-modifier -float 0.15
 # preferences and ask System Events to apply the change through macOS.
 defaults write NSGlobalDomain _HIHideMenuBar -bool true
 defaults write NSGlobalDomain AppleMenuBarVisibleInFullscreen -bool false
+defaults write NSGlobalDomain SLSMenuBarUseBlurredAppearance -bool true
 osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to true'
 
 # Restart affected system processes so the changes take effect immediately.

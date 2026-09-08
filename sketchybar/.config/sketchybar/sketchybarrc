@@ -42,7 +42,7 @@ sketchybar --bar \
   color="$TRANSPARENT" \
   shadow=off \
   sticky=on \
-  topmost=on
+  topmost=window
 
 sketchybar --default \
   updates=when_shown \
@@ -308,6 +308,9 @@ sketchybar --add item coding-agents right \
     padding_left=2 \
     padding_right=2 \
     icon.drawing=off \
+    icon.padding_left=10 \
+    icon.padding_right=6 \
+    label.padding_right=10 \
     background.drawing=on \
     updates=on \
     click_script="CODING_AGENTS_TMUX_FOCUS_COMMAND='aerospace workspace 2' '$HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-popup.sh'" \

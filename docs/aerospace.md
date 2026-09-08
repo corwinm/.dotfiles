@@ -48,8 +48,8 @@ The programmable keyboard supplies Hyper as Command+Option+Control+Shift.
 | Hyper+P | Bitwarden |
 | Hyper+F | Finder |
 | Hyper+R | Preview |
-| Hyper+G | Focus workspace 2 and open the coding-agent chooser |
-| Hyper+Q | Focus workspace 2 and open agents waiting for input |
+| Hyper+G | Focus Ghostty and open the compact coding-agent menu |
+| Hyper+Q | Focus Ghostty and open the compact menu for agents waiting for input |
 | Hyper+L | Slack |
 | Hyper+O | Microsoft Outlook |
 | Hyper+C | Microsoft Teams |
