@@ -40,6 +40,14 @@ grep -Fxq -- 'label.color=0xfffe640b' "$tmp_dir/sketchybar.log"
 grep -Fxq -- 'background.border_color=0xfffe640b' "$tmp_dir/sketchybar.log"
 
 SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
+  FAKE_STATUS_JSON='{"mode":"summary","total":2,"busy":0,"waiting":1}' \
+  CODING_AGENTS_TMUX_BIN="$tmp_dir/coding-agents-tmux" \
+  SKETCHYBAR_BIN="$tmp_dir/sketchybar" \
+  NAME=coding-agents \
+  "$repo_root/sketchybar/.config/sketchybar/plugins/coding_agents.sh"
+grep -Fxq -- 'drawing=off' "$tmp_dir/sketchybar.log"
+
+SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
   FAKE_CLI_FAIL=1 \
   CODING_AGENTS_TMUX_BIN="$tmp_dir/coding-agents-tmux" \
   SKETCHYBAR_BIN="$tmp_dir/sketchybar" \
@@ -53,3 +61,4 @@ grep -Fq -- 'cmd-alt-ctrl-shift-g' "$repo_root/aerospace/.config/aerospace/aeros
 grep -Fq -- 'focus-and-popup.sh' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- '--waiting' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- 'coding_agents_changed' "$repo_root/sketchybar/.config/sketchybar/sketchybarrc"
+grep -Fq -- '--set coding-agents background.color=' "$repo_root/sketchybar/.config/sketchybar/plugins/appearance.sh"

@@ -12,10 +12,16 @@ if ! status_json="$("$CLI" status --summary --json --provider "$PROVIDER" 2>/dev
   exit 0
 fi
 
-parsed="$({ STATUS_JSON="$status_json" node -e '
+if ! parsed="$({ STATUS_JSON="$status_json" node -e '
 const status = JSON.parse(process.env.STATUS_JSON ?? "{}");
-process.stdout.write((status.tone ?? "unknown") + "\t" + (status.summary ?? ""));
-'; })"
+if (typeof status.tone !== "string" || typeof status.summary !== "string" || status.summary.length === 0) {
+  process.exit(2);
+}
+process.stdout.write(status.tone + "\t" + status.summary);
+'; })"; then
+  "$SKETCHYBAR" --set "$ITEM_NAME" drawing=off
+  exit 0
+fi
 tone="${parsed%%$'\t'*}"
 summary="${parsed#*$'\t'}"
 

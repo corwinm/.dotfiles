@@ -35,6 +35,7 @@ args=(
   --set workspaces background.color="$PILL" background.border_color="$PINK"
   --set workspace_separator background.color="$CREAM"
   --set front_app background.color="$PILL" background.border_color="$CREAM" label.color="$TEXT"
+  --set coding-agents background.color="$PILL"
   --set time background.color="$PILL" background.border_color="$PURPLE" icon.color="$PURPLE" label.color="$TEXT"
   --set date background.color="$PILL" background.border_color="$GREEN" icon.color="$GREEN" label.color="$TEXT" popup.background.color="$POPUP" popup.background.border_color="$GREEN"
   --set volume background.color="$PILL" background.border_color="$ORANGE" icon.color="$ORANGE" label.color="$TEXT"
