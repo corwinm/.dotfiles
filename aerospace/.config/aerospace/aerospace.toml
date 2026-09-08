@@ -41,14 +41,14 @@ on-window-detected = [
 8 = ['secondary', 'main']
 9 = ['secondary', 'main']
 
-# Reserve space below SketchyBar's visible capsules. The bar's transparent
-# 54px canvas is taller than its contents, so a 48px gap keeps windows close.
+# Reserve space below SketchyBar's visible capsules on the main display. The
+# secondary display has no bar, so it uses the standard 8px outer gap.
 [gaps]
 inner.horizontal = 6
 inner.vertical = 6
 outer.left = 8
 outer.bottom = 8
-outer.top = 48
+outer.top = [{ monitor.main = 48 }, 8]
 outer.right = 8
 
 [mode.main.binding]

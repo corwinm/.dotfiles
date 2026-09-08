@@ -33,6 +33,7 @@ FONT="Liga SFMono Nerd Font"
 # Leave the wallpaper visible between independent status capsules.
 sketchybar --bar \
   drawing=on \
+  display=main \
   height=54 \
   margin=8 \
   y_offset=-4 \
