@@ -76,7 +76,7 @@ In window-management mode:
 - Workspaces 6–9 use the secondary display when exactly two displays are attached and fall back to the main display otherwise.
 - New Chrome windows move to workspace 1; Ghostty windows move to 2; Discord, Messages, and ChatGPT windows move to 3; and Slack, Outlook, and Teams windows move to 6.
 - Apps without a routing rule, including Finder and Preview, open in the current workspace.
-- Inner gaps are 6 pixels. Outer gaps are 8 pixels, with a 12-pixel top gap for extra clearance below SketchyBar; macOS already reserves the menu-bar region itself.
+- Inner gaps are 6 pixels. Outer gaps are 8 pixels, with a 48-pixel top gap keeping tiled windows close beneath SketchyBar while the native menu bar is auto-hidden.
 
 ## Useful tuning points
 

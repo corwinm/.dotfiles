@@ -24,7 +24,14 @@ else
   volume="$(osascript -e 'output volume of (get volume settings)' 2>/dev/null)"
 fi
 muted="$(osascript -e 'output muted of (get volume settings)' 2>/dev/null)"
-volume="${volume:-0}"
+
+# HDMI and other externally controlled outputs report "missing value" because
+# macOS cannot adjust their volume. Hide the control until a controllable output
+# becomes active again.
+if ! [[ "$volume" =~ ^[0-9]+$ ]] || [[ "$muted" != "true" && "$muted" != "false" ]]; then
+  sketchybar --set "$item" drawing=off
+  exit 0
+fi
 
 if [[ "$muted" == "true" ]]; then
   icon="󰝟"
@@ -43,4 +50,4 @@ else
   label="${volume}%"
 fi
 
-sketchybar --set "$item" icon="$icon" label="$label"
+sketchybar --set "$item" drawing=on icon="$icon" label="$label"

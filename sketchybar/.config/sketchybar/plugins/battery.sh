@@ -5,7 +5,12 @@ battery_info="$(pmset -g batt)"
 percentage="$(printf '%s\n' "$battery_info" | grep -Eo '[0-9]+%' | head -1)"
 level="${percentage%%%}"
 
-[[ -z "$level" ]] && exit 0
+# Desktop Macs and systems without an internal battery do not report a charge
+# percentage. Hide the item until battery data becomes available.
+if ! [[ "$level" =~ ^[0-9]+$ ]]; then
+  sketchybar --set "$item" drawing=off
+  exit 0
+fi
 
 case "$level" in
   100|[8-9][0-9]) icon="" ;;
@@ -16,4 +21,4 @@ case "$level" in
 esac
 
 [[ "$battery_info" == *"AC Power"* ]] && icon=""
-sketchybar --set "$item" icon="$icon" label="$percentage"
+sketchybar --set "$item" drawing=on icon="$icon" label="$percentage"

@@ -19,8 +19,20 @@ func audioDevices() -> [AudioObjectID] {
     return devices
 }
 
+func deviceHasInputStreams(_ device: AudioObjectID) -> Bool {
+    var address = AudioObjectPropertyAddress(
+        mSelector: kAudioDevicePropertyStreams,
+        mScope: kAudioDevicePropertyScopeInput,
+        mElement: kAudioObjectPropertyElementMain
+    )
+    var size: UInt32 = 0
+    return AudioObjectGetPropertyDataSize(device, &address, 0, nil, &size) == noErr
+        && size >= MemoryLayout<AudioStreamID>.size
+}
+
 func microphoneIsActive() -> Bool {
     for device in audioDevices() {
+        guard deviceHasInputStreams(device) else { continue }
         var address = AudioObjectPropertyAddress(
             mSelector: kAudioDevicePropertyDeviceIsRunningSomewhere,
             mScope: kAudioDevicePropertyScopeInput,

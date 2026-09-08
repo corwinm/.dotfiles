@@ -41,14 +41,14 @@ on-window-detected = [
 8 = ['secondary', 'main']
 9 = ['secondary', 'main']
 
-# macOS already reserves the menu-bar region used by SketchyBar. Match its 8px
-# margin around the screen, with 4px of extra clearance below the bar.
+# Reserve space below SketchyBar's visible capsules. The bar's transparent
+# 54px canvas is taller than its contents, so a 48px gap keeps windows close.
 [gaps]
 inner.horizontal = 6
 inner.vertical = 6
 outer.left = 8
 outer.bottom = 8
-outer.top = 12
+outer.top = 48
 outer.right = 8
 
 [mode.main.binding]
