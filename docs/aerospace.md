@@ -20,7 +20,7 @@ AeroSpace also accepts the stowed XDG path at `~/.config/aerospace/aerospace.tom
 
 ## SketchyBar status
 
-The stowed SketchyBar configuration runs on the macOS main display and updates its Catppuccin-inspired light and dark palettes in place with the macOS appearance, without reloading the bar. It shows the active application and populated AeroSpace workspaces on the left. The focused workspace remains visible even when empty, and a divider separates workspaces 1–5 from 6–9. Click a workspace number to switch to it. A fixed mode slot in the workspace pill shows a green dot normally and a red `W` in window-management mode, without shifting the layout. The right side shows coding-agent state, battery, volume, date, and time; a Time Machine progress pill appears only while a backup is running, an Offline warning appears when neither Wi-Fi nor Ethernet is active, and microphone/camera pills appear only while those devices are in use. Agent state is pushed to SketchyBar by the generic `@coding-agents-tmux-notify-command` hook rather than polled. Clicking it focuses workspace 2 and opens the agent chooser in the most recently active attached tmux client. Click volume to mute or unmute and scroll it to adjust the level. Battery and Offline open their System Settings pages, the date toggles a mini calendar, and the time opens macOS Notification Center. The Notification Center action uses UI scripting and requires Accessibility access for SketchyBar in System Settings. The Homebrew service starts the bar at login, while AeroSpace's startup command is a safe fallback and its custom event keeps the workspace state up to date.
+The stowed SketchyBar configuration runs on the macOS main display and updates its Catppuccin-inspired light and dark palettes in place with the macOS appearance, without reloading the bar. It shows the active application and populated AeroSpace workspaces on the left. The focused workspace remains visible even when empty, and a divider separates workspaces 1–5 from 6–9. Click a workspace number to switch to it. A fixed mode slot in the workspace pill shows a green dot normally, a blue robot in agent mode, and a red window icon in window-management mode, without shifting the layout. The right side shows coding-agent state, battery, volume, date, and time; a Time Machine progress pill appears only while a backup is running, an Offline warning appears when neither Wi-Fi nor Ethernet is active, and microphone/camera pills appear only while those devices are in use. Agent state is pushed to SketchyBar by the generic `@coding-agents-tmux-notify-command` hook rather than polled. Clicking it focuses workspace 2 and opens the agent chooser in the most recently active attached tmux client. Click volume to mute or unmute and scroll it to adjust the level. Battery and Offline open their System Settings pages, the date toggles a mini calendar, and the time opens macOS Notification Center. The Notification Center action uses UI scripting and requires Accessibility access for SketchyBar in System Settings. The Homebrew service starts the bar at login, while AeroSpace's startup command is a safe fallback and its custom event keeps the workspace state up to date.
 
 The agent status and launcher require a version of `coding-agents-tmux` that supports `status --summary --json`, `popup --client auto`, and `@coding-agents-tmux-notify-command`. Until that version is installed, the status item stays hidden. The status plugin finds Node in common Homebrew, Vite+, and nvm locations because the SketchyBar service does not inherit the interactive shell's PATH; set `CODING_AGENTS_TMUX_NODE_BIN` in the service environment to override that discovery.
 
@@ -43,7 +43,7 @@ The programmable keyboard supplies Hyper as Command+Option+Control+Shift.
 | Hyper+D | Discord |
 | Hyper+M | Messages |
 | Hyper+V | Visual Studio Code |
-| Hyper+A | ChatGPT |
+| Hyper+A | Enter agent mode |
 | Hyper+S | System Settings |
 | Hyper+P | Bitwarden |
 | Hyper+F | Finder |
@@ -55,6 +55,14 @@ The programmable keyboard supplies Hyper as Command+Option+Control+Shift.
 | Hyper+C | Microsoft Teams |
 | Hyper+1…9 | Switch workspace |
 | Hyper+W | Enter window-management mode |
+
+In agent mode:
+
+- `1…9` focuses Ghostty and switches to that one-based coding-agent pane in the plugin's stable target order.
+- `C` opens ChatGPT.
+- `Escape` returns to normal bindings.
+
+The mode remains active after switching or opening ChatGPT, so several agent panes can be visited in succession without pressing Hyper+A again.
 
 In window-management mode:
 

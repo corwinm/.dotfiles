@@ -64,5 +64,25 @@ grep -Fq -- '--waiting' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- '--menu' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- 'CODING_AGENTS_TMUX_FOCUS_COMMAND' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- 'focus-and-popup.sh' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
+grep -Fq -- 'cmd-alt-ctrl-shift-a' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
+grep -Fq -- '[mode.agent.binding]' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
+grep -Fq -- 'focus-and-switch-index.sh 1' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
+grep -Fq -- 'focus-and-switch-index.sh 9' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- 'coding_agents_changed' "$repo_root/sketchybar/.config/sketchybar/sketchybarrc"
 grep -Fq -- '--set coding-agents background.color=' "$repo_root/sketchybar/.config/sketchybar/plugins/appearance.sh"
+
+SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
+  PATH="$tmp_dir:/usr/bin:/bin" \
+  MODE=agent \
+  NAME=aerospace_mode \
+  "$repo_root/sketchybar/.config/sketchybar/plugins/aerospace_mode.sh"
+grep -Fxq -- 'icon=󰚩' "$tmp_dir/sketchybar.log"
+grep -Fxq -- 'icon.color=0xff1e66f5' "$tmp_dir/sketchybar.log"
+
+SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
+  PATH="$tmp_dir:/usr/bin:/bin" \
+  MODE=window \
+  NAME=aerospace_mode \
+  "$repo_root/sketchybar/.config/sketchybar/plugins/aerospace_mode.sh"
+grep -Fxq -- 'icon=' "$tmp_dir/sketchybar.log"
+grep -Fxq -- 'icon.color=0xffd20f39' "$tmp_dir/sketchybar.log"

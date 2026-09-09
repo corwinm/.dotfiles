@@ -76,7 +76,7 @@ sketchybar --add item appearance_watcher left \
 workspace_items=(aerospace_mode)
 
 # Keep one fixed-width mode slot before the workspace numbers. A colored dot is
-# the normal state and W indicates window mode, so surrounding items never move.
+# the normal state; robot and window icons indicate the temporary modes.
 sketchybar --add item aerospace_mode left \
   --subscribe aerospace_mode aerospace_mode_change \
   --set aerospace_mode \
