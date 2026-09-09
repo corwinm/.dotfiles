@@ -10,9 +10,21 @@ cat >"$tmp_dir/coding-agents-tmux" <<'EOF'
 #!/usr/bin/env bash
 [[ "${FAKE_CLI_FAIL:-0}" == 0 ]] || exit 1
 command -v node >/dev/null
-printf '%s\n' "$FAKE_STATUS_JSON"
+if [[ "$1" == "list" ]]; then
+  printf '%s\n' "${FAKE_LIST_JSON:-[]}"
+else
+  printf '%s\n' "$FAKE_STATUS_JSON"
+fi
 EOF
 chmod +x "$tmp_dir/coding-agents-tmux"
+
+cat >"$tmp_dir/tmux" <<'EOF'
+#!/usr/bin/env bash
+if [[ "$1" == "list-clients" && -n "${FAKE_CURRENT_TARGET:-}" ]]; then
+  printf '100\t%s\n' "$FAKE_CURRENT_TARGET"
+fi
+EOF
+chmod +x "$tmp_dir/tmux"
 
 cat >"$tmp_dir/sketchybar" <<'EOF'
 #!/usr/bin/env bash
@@ -40,6 +52,19 @@ grep -Fxq -- 'coding-agents' "$tmp_dir/sketchybar.log"
 grep -Fxq -- 'label=agents waiting' "$tmp_dir/sketchybar.log"
 grep -Fxq -- 'label.color=0xfffe640b' "$tmp_dir/sketchybar.log"
 grep -Fxq -- 'background.border_color=0xfffe640b' "$tmp_dir/sketchybar.log"
+
+SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
+  PATH="$tmp_dir:/usr/bin:/bin" \
+  CODING_AGENTS_TMUX_NODE_BIN="$(command -v node)" \
+  FAKE_STATUS_JSON='{"mode":"summary","total":3,"busy":1,"waiting":0,"running":1,"idle":2,"new":0,"unknown":0,"tone":"busy","summary":"󰚩 |   "}' \
+  FAKE_LIST_JSON='[{"pane":{"target":"one:1.0"}},{"pane":{"target":"two:1.0"}},{"pane":{"target":"three:1.0"}}]' \
+  FAKE_CURRENT_TARGET='two:1.0' \
+  CODING_AGENTS_TMUX_BIN="$tmp_dir/coding-agents-tmux" \
+  CODING_AGENTS_TMUX_TMUX_BIN="$tmp_dir/tmux" \
+  SKETCHYBAR_BIN="$tmp_dir/sketchybar" \
+  NAME=coding-agents \
+  "$repo_root/sketchybar/.config/sketchybar/plugins/coding_agents.sh"
+grep -Fxq -- 'label= 󰲢 ' "$tmp_dir/sketchybar.log"
 
 SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
   FAKE_STATUS_JSON='{"mode":"summary","total":2,"busy":0,"waiting":1}' \
