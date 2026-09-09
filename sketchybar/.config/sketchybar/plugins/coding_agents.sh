@@ -60,13 +60,12 @@ fi
 # summary remains in stable target order; only that pane's glyph becomes its
 # circled one-based index.
 current_target=""
-panes_json="[]"
+panes_json="$("$CLI" list --json --provider "$PROVIDER" 2>/dev/null || printf '[]')"
 if [[ -n "$TMUX_BIN" ]]; then
   client_format='#{client_activity}	#{session_name}:#{window_index}.#{pane_index}'
   client_line="$("$TMUX_BIN" list-clients -F "$client_format" 2>/dev/null | sort -rn | head -n 1 || true)"
   if [[ "$client_line" == *$'\t'* ]]; then
     current_target="${client_line#*$'\t'}"
-    panes_json="$("$CLI" list --json --provider "$PROVIDER" 2>/dev/null || printf '[]')"
   fi
 fi
 
@@ -121,11 +120,13 @@ if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
   BLUE=0xff1e6e77
   ORANGE=0xffcc7b6e
   GREEN=0xff638989
+  PINK=0xffd7448a
   CREAM=0xffd3cdc5
 else
   BLUE=0xff1e66f5
   ORANGE=0xfffe640b
   GREEN=0xff40a02b
+  PINK=0xffea76cb
   CREAM=0xff5c5f77
 fi
 
@@ -143,4 +144,67 @@ esac
   label="$label" \
   label.padding_left="$label_padding_left" \
   label.color="$color" \
-  background.border_color="$color"
+  background.border_color="$color" \
+  popup.background.border_color="$color"
+
+popup_args=()
+for index in {1..9}; do
+  popup_args+=(--set "coding-agent.$index" drawing=off)
+done
+
+while IFS=$'\t' read -r index glyph row_tone row_label focused; do
+  [[ "$index" =~ ^[1-9]$ ]] || continue
+  case "$row_tone" in
+    waiting) row_color="$ORANGE" ;;
+    busy) row_color="$BLUE" ;;
+    idle) row_color="$GREEN" ;;
+    *) row_color="$CREAM" ;;
+  esac
+  icon_color="$row_color"
+  [[ "$focused" == "true" ]] && icon_color="$PINK"
+  popup_args+=(
+    --set "coding-agent.$index"
+      drawing=on
+      icon="$glyph"
+      icon.color="$icon_color"
+      label="$row_label"
+      label.color="$row_color"
+  )
+done < <({ PANES_JSON="$panes_json" CURRENT_TARGET="$current_target" "$NODE" -e '
+const path = require("node:path");
+let panes = [];
+try {
+  panes = JSON.parse(process.env.PANES_JSON ?? "[]");
+} catch {}
+if (!Array.isArray(panes)) process.exit(0);
+
+const glyphs = ["󰲠", "󰲢", "󰲤", "󰲦", "󰲨", "󰲪", "󰲬", "󰲮", "󰲰"];
+const clean = (value) => String(value ?? "").replace(/[\t\r\n]+/g, " ").trim();
+for (const [offset, entry] of panes.slice(0, 9).entries()) {
+  const status = entry?.runtime?.status ?? "unknown";
+  const activity = entry?.runtime?.activity ?? "unknown";
+  const tone = status === "waiting-question" || status === "waiting-input"
+    ? "waiting"
+    : status === "running" || activity === "busy"
+      ? "busy"
+      : status === "idle" || activity === "idle"
+        ? "idle"
+        : "neutral";
+  const statusLabel = status === "waiting-question" || status === "waiting-input"
+    ? "waiting"
+    : status === "running" ? "busy" : status;
+  const agent = clean(entry?.detection?.agent || "agent");
+  const project = clean(
+    entry?.runtime?.session?.title ||
+    path.basename(entry?.pane?.currentPath || "") ||
+    entry?.pane?.sessionName ||
+    entry?.pane?.target ||
+    "unknown"
+  );
+  const focused = entry?.pane?.target === process.env.CURRENT_TARGET;
+  const label = agent.charAt(0).toUpperCase() + agent.slice(1) + " · " + project + " · " + statusLabel + (focused ? " · focused" : "");
+  process.stdout.write([offset + 1, glyphs[offset], tone, label, focused].join("\t") + "\n");
+}
+'; })
+
+((${#popup_args[@]} > 0)) && "$SKETCHYBAR" "${popup_args[@]}"

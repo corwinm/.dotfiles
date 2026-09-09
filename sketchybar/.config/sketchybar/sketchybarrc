@@ -14,6 +14,7 @@ if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
   TEXT=0xffffffff
   PILL=0xeb1e1e2e
   POPUP=0xff1e1e2e
+  APPLE_COLOR="$TEXT"
 else
   BLUE=0xff1e66f5
   ORANGE=0xfffe640b
@@ -25,6 +26,7 @@ else
   TEXT=0xff4c4f69
   PILL=0xeee6e9ef
   POPUP=0xffeff1f5
+  APPLE_COLOR="$PINK"
 fi
 WHITE="$TEXT"
 TRANSPARENT=0x00000000
@@ -71,6 +73,50 @@ sketchybar --add item appearance_watcher left \
     drawing=off \
     updates=on \
     script="$CONFIG_DIR/plugins/appearance.sh"
+# A compact Apple menu keeps occasional system actions off the persistent bar.
+sketchybar --add item apple_menu left \
+  --set apple_menu \
+    padding_left=2 \
+    padding_right=2 \
+    icon="" \
+    icon.font="$FONT:Normal:20.0" \
+    icon.color="$APPLE_COLOR" \
+    icon.padding_left=8 \
+    icon.padding_right=8 \
+    label.drawing=off \
+    background.drawing=off \
+    popup.align=left \
+    popup.height=28 \
+    popup.background.color="$POPUP" \
+    popup.background.corner_radius=10 \
+    popup.background.border_width=1 \
+    popup.background.border_color="$PINK" \
+    click_script="$CONFIG_DIR/plugins/apple_menu.sh toggle"
+
+apple_menu_items=(about settings activity lock)
+apple_menu_icons=("󰋼" "" "󰄪" "")
+apple_menu_labels=("About This Mac" "System Settings" "Activity Monitor" "Lock Screen")
+for i in "${!apple_menu_items[@]}"; do
+  action="${apple_menu_items[$i]}"
+  sketchybar --add item "apple.$action" popup.apple_menu \
+    --set "apple.$action" \
+      icon="${apple_menu_icons[$i]}" \
+      icon.color="$PINK" \
+      icon.width=24 \
+      icon.align=center \
+      icon.padding_left=8 \
+      icon.padding_right=4 \
+      label="${apple_menu_labels[$i]}" \
+      label.color="$TEXT" \
+      label.width=150 \
+      label.align=left \
+      label.padding_left=4 \
+      label.padding_right=10 \
+      background.drawing=off \
+      click_script="$CONFIG_DIR/plugins/apple_menu.sh $action"
+done
+sketchybar --subscribe apple.about mouse.exited.global
+
 # Show only populated workspaces (plus the focused workspace when empty).
 # A divider separates personal workspaces 1–5 from work workspaces 6–9.
 workspace_items=(aerospace_mode)
@@ -163,7 +209,38 @@ sketchybar --add item front_app left \
     label.padding_right=12 \
     background.border_color="$CREAM" \
     background.drawing=on \
+    popup.align=left \
+    popup.height=28 \
+    popup.background.color="$POPUP" \
+    popup.background.corner_radius=10 \
+    popup.background.border_width=1 \
+    popup.background.border_color="$CREAM" \
+    click_script="$CONFIG_DIR/plugins/front_app_menu.sh toggle" \
     script="$CONFIG_DIR/plugins/front_app.sh"
+
+front_app_actions=(new settings hide quit)
+front_app_icons=("󰐕" "" "󰖰" "󰅖")
+front_app_labels=("New Window    ⌘N" "Settings      ⌘," "Hide          ⌘H" "Quit          ⌘Q")
+for i in "${!front_app_actions[@]}"; do
+  action="${front_app_actions[$i]}"
+  sketchybar --add item "front-app.$action" popup.front_app \
+    --set "front-app.$action" \
+      icon="${front_app_icons[$i]}" \
+      icon.color="$CREAM" \
+      icon.width=24 \
+      icon.align=center \
+      icon.padding_left=8 \
+      icon.padding_right=4 \
+      label="${front_app_labels[$i]}" \
+      label.color="$TEXT" \
+      label.width=165 \
+      label.align=left \
+      label.padding_left=4 \
+      label.padding_right=10 \
+      background.drawing=off \
+      click_script="$CONFIG_DIR/plugins/front_app_menu.sh $action"
+done
+sketchybar --subscribe front-app.new mouse.exited.global
 
 # Independent outlined status capsules mirror the reference configuration.
 # Right-side items are declared from the outside inward.
@@ -301,8 +378,8 @@ sketchybar --add item privacy_watcher right \
     update_freq=2 \
     script="$CONFIG_DIR/plugins/privacy.sh"
 
-# Agent state is event-driven by coding-agents-tmux. Clicking focuses Ghostty's
-# workspace and opens the chooser in the most recently active tmux client.
+# Agent state is event-driven by coding-agents-tmux. The popup expands the
+# compact glyph summary into indexed project rows with direct switching.
 sketchybar --add item coding-agents right \
   --subscribe coding-agents coding_agents_changed \
   --set coding-agents \
@@ -313,9 +390,50 @@ sketchybar --add item coding-agents right \
     icon.padding_right=6 \
     label.padding_right=10 \
     background.drawing=on \
+    popup.align=right \
+    popup.height=28 \
+    popup.background.color="$POPUP" \
+    popup.background.corner_radius=10 \
+    popup.background.border_width=1 \
+    popup.background.border_color="$BLUE" \
     updates=on \
-    click_script="CODING_AGENTS_TMUX_FOCUS_COMMAND='aerospace workspace 2' '$HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-popup.sh'" \
+    click_script="$CONFIG_DIR/plugins/agent_menu.sh toggle" \
     script="$CONFIG_DIR/plugins/coding_agents.sh"
+
+for index in {1..9}; do
+  sketchybar --add item "coding-agent.$index" popup.coding-agents \
+    --set "coding-agent.$index" \
+      drawing=off \
+      icon="$index" \
+      icon.width=24 \
+      icon.align=center \
+      icon.padding_left=8 \
+      icon.padding_right=4 \
+      label.width=210 \
+      label.align=left \
+      label.padding_left=4 \
+      label.padding_right=10 \
+      background.drawing=off \
+      click_script="$CONFIG_DIR/plugins/agent_menu.sh switch $index"
+done
+
+sketchybar --add item coding-agent.chooser popup.coding-agents \
+  --set coding-agent.chooser \
+    icon="󰍉" \
+    icon.color="$CREAM" \
+    icon.width=24 \
+    icon.align=center \
+    icon.padding_left=8 \
+    icon.padding_right=4 \
+    label="Open full chooser…" \
+    label.color="$TEXT" \
+    label.width=210 \
+    label.align=left \
+    label.padding_left=4 \
+    label.padding_right=10 \
+    background.drawing=off \
+    click_script="$CONFIG_DIR/plugins/agent_menu.sh chooser"
+sketchybar --subscribe coding-agent.1 mouse.exited.global
 
 focused_workspace="$(aerospace list-workspaces --focused)"
 current_mode="$(aerospace list-modes --current)"

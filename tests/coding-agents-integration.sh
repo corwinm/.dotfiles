@@ -28,7 +28,7 @@ chmod +x "$tmp_dir/tmux"
 
 cat >"$tmp_dir/sketchybar" <<'EOF'
 #!/usr/bin/env bash
-printf '%s\n' "$@" >"$SKETCHYBAR_TEST_LOG"
+printf '%s\n' "$@" >>"$SKETCHYBAR_TEST_LOG"
 EOF
 chmod +x "$tmp_dir/sketchybar"
 
@@ -53,6 +53,7 @@ grep -Fxq -- 'label=agents waiting' "$tmp_dir/sketchybar.log"
 grep -Fxq -- 'label.color=0xfffe640b' "$tmp_dir/sketchybar.log"
 grep -Fxq -- 'background.border_color=0xfffe640b' "$tmp_dir/sketchybar.log"
 
+: >"$tmp_dir/sketchybar.log"
 SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
   PATH="$tmp_dir:/usr/bin:/bin" \
   CODING_AGENTS_TMUX_NODE_BIN="$(command -v node)" \
@@ -65,7 +66,10 @@ SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
   NAME=coding-agents \
   "$repo_root/sketchybar/.config/sketchybar/plugins/coding_agents.sh"
 grep -Fxq -- 'label= 󰲢 ' "$tmp_dir/sketchybar.log"
+grep -Fxq -- 'label=Agent · one:1.0 · unknown' "$tmp_dir/sketchybar.log"
+grep -Fxq -- 'label=Agent · two:1.0 · unknown · focused' "$tmp_dir/sketchybar.log"
 
+: >"$tmp_dir/sketchybar.log"
 SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
   FAKE_STATUS_JSON='{"mode":"summary","total":2,"busy":0,"waiting":1}' \
   CODING_AGENTS_TMUX_BIN="$tmp_dir/coding-agents-tmux" \
@@ -74,6 +78,7 @@ SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
   "$repo_root/sketchybar/.config/sketchybar/plugins/coding_agents.sh"
 grep -Fxq -- 'drawing=off' "$tmp_dir/sketchybar.log"
 
+: >"$tmp_dir/sketchybar.log"
 SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
   FAKE_CLI_FAIL=1 \
   CODING_AGENTS_TMUX_BIN="$tmp_dir/coding-agents-tmux" \
@@ -95,7 +100,15 @@ grep -Fq -- 'focus-and-switch-index.sh 1' "$repo_root/aerospace/.config/aerospac
 grep -Fq -- 'focus-and-switch-index.sh 9' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- 'coding_agents_changed' "$repo_root/sketchybar/.config/sketchybar/sketchybarrc"
 grep -Fq -- '--set coding-agents background.color=' "$repo_root/sketchybar/.config/sketchybar/plugins/appearance.sh"
+grep -Fq -- 'icon.font="$FONT:Normal:20.0"' "$repo_root/sketchybar/.config/sketchybar/sketchybarrc"
+grep -Fq -- 'background.drawing=off' "$repo_root/sketchybar/.config/sketchybar/sketchybarrc"
+grep -Fq -- 'popup.coding-agents' "$repo_root/sketchybar/.config/sketchybar/sketchybarrc"
+grep -Fq -- 'popup.front_app' "$repo_root/sketchybar/.config/sketchybar/sketchybarrc"
+grep -Fq -- 'front_app_actions=(new settings hide quit)' "$repo_root/sketchybar/.config/sketchybar/sketchybarrc"
+! grep -Fq -- 'force' "$repo_root/sketchybar/.config/sketchybar/plugins/front_app_menu.sh"
+grep -Fq -- "CODING_AGENTS_TMUX_FOCUS_COMMAND='/usr/bin/open -a Ghostty'" "$repo_root/sketchybar/.config/sketchybar/plugins/agent_menu.sh"
 
+: >"$tmp_dir/sketchybar.log"
 SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
   PATH="$tmp_dir:/usr/bin:/bin" \
   MODE=agent \
@@ -104,6 +117,7 @@ SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
 grep -Fxq -- 'icon=󰚩' "$tmp_dir/sketchybar.log"
 grep -Fxq -- 'icon.color=0xff1e66f5' "$tmp_dir/sketchybar.log"
 
+: >"$tmp_dir/sketchybar.log"
 SKETCHYBAR_TEST_LOG="$tmp_dir/sketchybar.log" \
   PATH="$tmp_dir:/usr/bin:/bin" \
   MODE=window \

@@ -16,6 +16,7 @@ if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
   TEXT=0xffffffff
   PILL=0xeb1e1e2e
   POPUP=0xff1e1e2e
+  APPLE_COLOR="$TEXT"
 else
   BLUE=0xff1e66f5
   ORANGE=0xfffe640b
@@ -27,15 +28,17 @@ else
   TEXT=0xff4c4f69
   PILL=0xeee6e9ef
   POPUP=0xffeff1f5
+  APPLE_COLOR="$PINK"
 fi
 
 args=(
   --default icon.color="$TEXT" label.color="$TEXT" background.color="$PILL"
   --set appearance_watcher drawing=off icon="" label="" background.drawing=off
+  --set apple_menu icon.color="$APPLE_COLOR" popup.background.color="$POPUP" popup.background.border_color="$PINK"
   --set workspaces background.color="$PILL" background.border_color="$PINK"
   --set workspace_separator background.color="$CREAM"
-  --set front_app background.color="$PILL" background.border_color="$CREAM" label.color="$TEXT"
-  --set coding-agents background.color="$PILL"
+  --set front_app background.color="$PILL" background.border_color="$CREAM" label.color="$TEXT" popup.background.color="$POPUP" popup.background.border_color="$CREAM"
+  --set coding-agents background.color="$PILL" popup.background.color="$POPUP"
   --set time background.color="$PILL" background.border_color="$PURPLE" icon.color="$PURPLE" label.color="$TEXT"
   --set date background.color="$PILL" background.border_color="$GREEN" icon.color="$GREEN" label.color="$TEXT" popup.background.color="$POPUP" popup.background.border_color="$GREEN"
   --set volume background.color="$PILL" background.border_color="$ORANGE" icon.color="$ORANGE" label.color="$TEXT"
@@ -46,9 +49,19 @@ args=(
   --set microphone_active background.color="$PILL" background.border_color="$ORANGE" icon.color="$ORANGE" label.color="$TEXT"
 )
 
+for action in about settings activity lock; do
+  args+=(--set "apple.$action" icon.color="$PINK" label.color="$TEXT")
+done
+for action in new settings hide quit; do
+  args+=(--set "front-app.$action" icon.color="$CREAM" label.color="$TEXT")
+done
 for sid in {1..9}; do
   args+=(--set "space.$sid" background.color="$BLUE")
 done
+for index in {1..9}; do
+  args+=(--set "coding-agent.$index" label.color="$TEXT")
+done
+args+=(--set coding-agent.chooser icon.color="$CREAM" label.color="$TEXT")
 for row in {0..7}; do
   args+=(--set "calendar.$row" background.color="$PILL")
 done
