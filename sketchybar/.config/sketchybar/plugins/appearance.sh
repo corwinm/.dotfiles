@@ -16,7 +16,6 @@ if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
   TEXT=0xffffffff
   PILL=0xeb1e1e2e
   POPUP=0xff1e1e2e
-  APPLE_COLOR="$TEXT"
 else
   BLUE=0xff1e66f5
   ORANGE=0xfffe640b
@@ -28,8 +27,8 @@ else
   TEXT=0xff4c4f69
   PILL=0xeee6e9ef
   POPUP=0xffeff1f5
-  APPLE_COLOR="$PINK"
 fi
+APPLE_COLOR=0xffffffff
 
 args=(
   --default icon.color="$TEXT" label.color="$TEXT" background.color="$PILL"
