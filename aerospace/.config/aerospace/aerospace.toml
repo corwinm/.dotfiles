@@ -41,14 +41,17 @@ on-window-detected = [
 8 = ['secondary', 'main']
 9 = ['secondary', 'main']
 
-# Reserve space below SketchyBar's visible capsules on the main display. The
-# secondary display has no bar, so it uses the standard 8px outer gap.
+# Reserve space below SketchyBar's visible capsules on the display that shows
+# the bar. The built-in display's notch makes its menu bar taller, so it needs
+# a smaller top gap (14) than a notchless external main display (48). Matching
+# the built-in display by name keeps it correct whether or not it is 'main'.
+# The secondary display has no bar, so it uses the standard 8px outer gap.
 [gaps]
 inner.horizontal = 6
 inner.vertical = 6
 outer.left = 8
 outer.bottom = 8
-outer.top = [{ monitor.main = 48 }, 8]
+outer.top = [{ monitor.'built-in' = 14 }, { monitor.main = 48 }, 8]
 outer.right = 8
 
 [mode.main.binding]
