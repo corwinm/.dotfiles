@@ -11,6 +11,9 @@ fi
 defaults write com.apple.dock autohide-delay -float 0
 defaults write com.apple.dock autohide-time-modifier -float 0.15
 
+# Move windows by holding Ctrl+Cmd and dragging anywhere in the window body.
+defaults write -g NSWindowShouldDragOnGesture -bool true
+
 # Keep the native menu bar hidden so it does not overlap SketchyBar. On newer
 # macOS releases, writing _HIHideMenuBar alone updates the preference file but
 # does not reliably apply the setting to the current session. Set both backing
@@ -21,7 +24,7 @@ defaults write NSGlobalDomain SLSMenuBarUseBlurredAppearance -bool true
 osascript -e 'tell application "System Events" to set autohide menu bar of dock preferences to true'
 
 # Restart affected system processes so the changes take effect immediately.
-killall Dock
-killall SystemUIServer
+killall Dock 2>/dev/null || true
+killall SystemUIServer 2>/dev/null || true
 
 echo "macOS Dock and menu bar defaults applied."
