@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+# JankyBorders configuration. The `borders` daemon runs this file at startup.
+# Colors track the macOS appearance and mirror SketchyBar's Catppuccin palette.
+# Live theme switching is handled by the sketchybar appearance.sh plugin, which
+# re-applies these colors when macOS toggles between light and dark.
+if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
+  ACTIVE=0xff1e6e77
+  INACTIVE=0xff45475a
+else
+  ACTIVE=0xff4a90ff
+  INACTIVE=0xffacb0be
+fi
+
+options=(
+  active_color="$ACTIVE"
+  inactive_color="$INACTIVE"
+  width=6.0
+  hidpi=on
+)
+
+borders "${options[@]}"

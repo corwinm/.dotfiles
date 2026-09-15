@@ -16,6 +16,8 @@ if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
   TEXT=0xffffffff
   PILL=0xeb1e1e2e
   POPUP=0xff1e1e2e
+  BORDER_ACTIVE=0xff1e6e77
+  BORDER_INACTIVE=0xff45475a
 else
   BLUE=0xff1e66f5
   ORANGE=0xfffe640b
@@ -27,6 +29,8 @@ else
   TEXT=0xff4c4f69
   PILL=0xeee6e9ef
   POPUP=0xffeff1f5
+  BORDER_ACTIVE=0xff4a90ff
+  BORDER_INACTIVE=0xffacb0be
 fi
 APPLE_COLOR=0xffffffff
 
@@ -68,6 +72,11 @@ done
 # Apply every palette property in a single transaction so the bar never
 # disappears or shows a partially switched theme.
 sketchybar "${args[@]}"
+
+# Keep JankyBorders in sync with the active palette.
+if command -v borders >/dev/null 2>&1; then
+  borders active_color="$BORDER_ACTIVE" inactive_color="$BORDER_INACTIVE" >/dev/null 2>&1
+fi
 
 # Re-evaluate state-dependent colors after the palette changes.
 "$CONFIG_DIR/plugins/aerospace.sh"

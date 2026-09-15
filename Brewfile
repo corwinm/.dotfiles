@@ -12,6 +12,7 @@ brew "nvm"
 brew "pngpaste"
 brew "ripgrep"
 brew "sesh"
+brew "FelixKratz/formulae/borders", trusted: true
 brew "FelixKratz/formulae/sketchybar", trusted: true
 brew "starship"
 brew "stow"

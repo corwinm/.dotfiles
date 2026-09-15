@@ -8,8 +8,8 @@ This is a deliberately conservative starting point for trying AeroSpace without 
 brew install --cask nikitabobko/tap/aerospace
 brew tap FelixKratz/formulae
 brew trust --formula FelixKratz/formulae/sketchybar
-brew install sketchybar
-stow aerospace sketchybar
+brew install sketchybar borders
+stow aerospace sketchybar borders
 brew services start sketchybar
 open -a AeroSpace
 ```
@@ -20,7 +20,7 @@ AeroSpace also accepts the stowed XDG path at `~/.config/aerospace/aerospace.tom
 
 ## SketchyBar status
 
-The stowed SketchyBar configuration runs on the macOS main display and updates its Catppuccin-inspired light and dark palettes in place with the macOS appearance, without reloading the bar. It shows the active application and populated AeroSpace workspaces on the left. The focused workspace remains visible even when empty, and a divider separates workspaces 1–5 from 6–9. Click a workspace number to switch to it. A fixed mode slot in the workspace pill shows a green dot normally, a blue robot in agent mode, and a red window icon in window-management mode, without shifting the layout. The right side shows coding-agent state, battery, volume, date, and time; the focused agent's status glyph is replaced by its circled one-based switcher index so it remains visible in the stable pane order; a Time Machine progress pill appears only while a backup is running, an Offline warning appears when neither Wi-Fi nor Ethernet is active, and microphone/camera pills appear only while those devices are in use. Agent state is pushed to SketchyBar by the generic `@coding-agents-tmux-notify-command` hook rather than polled. Clicking it focuses workspace 2 and opens the agent chooser in the most recently active attached tmux client. Click volume to mute or unmute and scroll it to adjust the level. Battery and Offline open their System Settings pages, the date toggles a mini calendar, and the time opens macOS Notification Center. The Notification Center action uses UI scripting and requires Accessibility access for SketchyBar in System Settings. The Homebrew service starts the bar at login, while AeroSpace's startup command is a safe fallback and its custom event keeps the workspace state up to date.
+The stowed SketchyBar configuration runs on all connected displays and updates its Catppuccin-inspired light and dark palettes in place with the macOS appearance, without reloading the bar. It shows the active application and populated AeroSpace workspaces on the left. The focused workspace remains visible even when empty, and a divider separates workspaces 1–5 from 6–9. Click a workspace number to switch to it. A fixed mode slot in the workspace pill shows a green dot normally, a blue robot in agent mode, and a red window icon in window-management mode, without shifting the layout. The right side shows coding-agent state, battery, volume, date, and time; the focused agent's status glyph is replaced by its circled one-based switcher index so it remains visible in the stable pane order; a Time Machine progress pill appears only while a backup is running, an Offline warning appears when neither Wi-Fi nor Ethernet is active, and microphone/camera pills appear only while those devices are in use. Agent state is pushed to SketchyBar by the generic `@coding-agents-tmux-notify-command` hook rather than polled. Clicking it focuses workspace 2 and opens the agent chooser in the most recently active attached tmux client. Click volume to mute or unmute and scroll it to adjust the level. Battery and Offline open their System Settings pages, the date toggles a mini calendar, and the time opens macOS Notification Center. The Notification Center action uses UI scripting and requires Accessibility access for SketchyBar in System Settings. The Homebrew service starts the bar at login, while AeroSpace's startup command is a safe fallback and its custom event keeps the workspace state up to date.
 
 The large white Apple logo at the far left has no pill background and opens a short system menu for About This Mac, System Settings, Activity Monitor, and locking. Clicking the current-application capsule opens shortcuts for a new window, application settings, hiding, and quitting; these send the standard macOS Command-key shortcuts to the frontmost application and require Accessibility access for SketchyBar. The coding-agent capsule opens an indexed details popup with agent type, project, state, focused-pane highlighting, direct pane switching, and a link to the full chooser. Both popups dismiss when the pointer leaves them.
 
@@ -86,7 +86,12 @@ In window-management mode:
 - Workspaces 6–9 use the secondary display when exactly two displays are attached and fall back to the main display otherwise.
 - New Chrome windows move to workspace 1; Ghostty windows move to 2; Discord, Messages, and ChatGPT windows move to 3; and Slack, Outlook, and Teams windows move to 6.
 - Apps without a routing rule, including Finder and Preview, open in the current workspace.
-- Inner gaps are 6 pixels and outer gaps are 8 pixels. The main display uses a 48-pixel top gap beneath SketchyBar; displays without the bar keep the standard 8-pixel top gap.
+- Inner gaps are 6 pixels and outer gaps are 8 pixels. A notchless external main display uses a 48-pixel top gap beneath SketchyBar, while the built-in display (matched by name) uses a 14-pixel top gap because its notch makes the native menu bar taller; any other display keeps the standard 8-pixel top gap.
+- `on-focused-monitor-changed` moves the mouse to the lazy center of the newly focused monitor so the pointer follows focus across displays.
+
+## Window borders
+
+[JankyBorders](https://github.com/FelixKratz/JankyBorders) draws a colored border around the focused window. AeroSpace launches the `borders` daemon at startup, and its styling lives in the stowed `borders/.config/borders/bordersrc`. The border colors track the macOS appearance, mirroring SketchyBar's Catppuccin palette: the active border uses the accent blue and the inactive border uses a muted gray, with distinct light and dark values. Live theme switching is handled by SketchyBar's `appearance.sh` plugin, which re-applies the border colors whenever macOS toggles between light and dark. Adjust the startup colors in `bordersrc` and the on-switch colors (`BLUE` and `BORDER_INACTIVE`) in `appearance.sh`.
 
 ## Useful tuning points
 
@@ -94,4 +99,4 @@ In window-management mode:
 - Increase `accordion-padding` if you want visual hints for adjacent windows.
 - Adjust the `on-window-detected` rules as the workspace assignments evolve.
 
-To back out, quit AeroSpace and SketchyBar, then run `stow -D aerospace sketchybar` from the repository.
+To back out, quit AeroSpace, SketchyBar, and `borders`, then run `stow -D aerospace sketchybar borders` from the repository.

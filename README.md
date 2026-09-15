@@ -42,6 +42,7 @@ stow pi
 # Optional AeroSpace + workspace status bar
 stow aerospace
 stow sketchybar
+stow borders
 ```
 
 See [`docs/aerospace.md`](docs/aerospace.md) for the trial bindings, SketchyBar integration, and setup notes.
@@ -54,6 +55,6 @@ Apply the preferred macOS Dock and menu bar settings on a new Mac:
 ./scripts/macos-defaults.sh
 ```
 
-The script removes the Dock's auto-hide delay, shortens its auto-hide animation, and automatically hides the native menu bar so it does not overlap SketchyBar. It also requests the blurred native menu bar background for better readability when the bar is revealed and restarts the affected system processes.
+The script removes the Dock's auto-hide delay, shortens its auto-hide animation, enables dragging windows by holding Ctrl+Cmd anywhere in the window body, and automatically hides the native menu bar so it does not overlap SketchyBar. It also requests the blurred native menu bar background for better readability when the bar is revealed and restarts the affected system processes. The window-drag setting only applies to apps launched after it is set, so log out and back in (or restart) for it to take effect everywhere.
 
 On macOS Tahoe, menu bar preference files can update without the running UI applying the change. After running the script on a new Mac, open **System Settings → Menu Bar**, set **Automatically hide and show the menu bar** to **Always**, and enable **Show menu bar background**. If either setting already appears selected but has no visible effect, toggle it off and back on once.

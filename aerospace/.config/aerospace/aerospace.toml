@@ -8,7 +8,12 @@ auto-reload-config = true
 
 # Run SketchyBar with AeroSpace and tell it when the focused workspace changes.
 # SketchyBar ignores this startup command when it is already running.
-after-startup-command = ['exec-and-forget sketchybar']
+after-startup-command = [
+    'exec-and-forget sketchybar',
+    # Draw a colored border around the focused window (JankyBorders). Styling
+    # lives in ~/.config/borders/bordersrc; appearance.sh recolors it live.
+    'exec-and-forget borders',
+]
 exec-on-workspace-change = ['/bin/bash', '-c',
     'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
