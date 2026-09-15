@@ -72,6 +72,7 @@ sketchybar --default \
 
 sketchybar --add event aerospace_workspace_change
 sketchybar --add event aerospace_mode_change
+sketchybar --add event aerospace_cheatsheet
 sketchybar --add event coding_agents_changed
 sketchybar --add event system_appearance_changed AppleInterfaceThemeChangedNotification
 
@@ -146,8 +147,48 @@ sketchybar --add item aerospace_mode left \
     icon.padding_right=0 \
     label.drawing=off \
     background.drawing=off \
+    popup.align=left \
+    popup.height=28 \
+    popup.background.color="$POPUP" \
+    popup.background.corner_radius=10 \
+    popup.background.border_width=1 \
+    popup.background.border_color="$BORDER" \
     update_freq=2 \
-    script="$CONFIG_DIR/plugins/aerospace_mode.sh"
+    script="$CONFIG_DIR/plugins/aerospace_mode.sh" \
+    click_script="$CONFIG_DIR/plugins/aerospace_cheatsheet.sh"
+
+# Hidden rows for the mode-aware Hyper+? cheatsheet. The script enables only
+# the rows relevant to the currently active AeroSpace mode.
+for i in $(seq 1 18); do
+  sketchybar --add item "aerospace_cheatsheet.$i" popup.aerospace_mode \
+    --set "aerospace_cheatsheet.$i" \
+      drawing=off \
+      icon.color="$BLUE" \
+      icon.width=92 \
+      icon.align=left \
+      icon.padding_left=10 \
+      icon.padding_right=8 \
+      label.color="$TEXT" \
+      label.width=220 \
+      label.align=left \
+      label.padding_left=0 \
+      label.padding_right=12 \
+      background.drawing=off
+done
+
+# The first popup row receives SketchyBar's global mouse-exit event, matching
+# the dismissal behavior of the other native popups.
+sketchybar --set aerospace_cheatsheet.1 script="$CONFIG_DIR/plugins/aerospace_cheatsheet.sh"
+sketchybar --subscribe aerospace_cheatsheet.1 mouse.exited.global
+
+sketchybar --add item aerospace_cheatsheet_watcher left \
+  --subscribe aerospace_cheatsheet_watcher aerospace_cheatsheet \
+  --set aerospace_cheatsheet_watcher \
+    drawing=off \
+    updates=on \
+    script="$CONFIG_DIR/plugins/aerospace_cheatsheet.sh"
+
+sketchybar --subscribe aerospace_mode aerospace_mode_change
 
 for sid in $(aerospace list-workspaces --all); do
   if [[ "$sid" == "6" ]]; then

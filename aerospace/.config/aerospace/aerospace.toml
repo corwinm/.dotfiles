@@ -66,15 +66,15 @@ outer.right = 8
 
 [mode.main.binding]
 # App launch/focus shortcuts.
-cmd-alt-ctrl-shift-t = 'exec-and-forget open -a "Ghostty"'
-cmd-alt-ctrl-shift-b = 'exec-and-forget open -a "Google Chrome"'
-cmd-alt-ctrl-shift-d = 'exec-and-forget open -a "Discord"'
-cmd-alt-ctrl-shift-m = 'exec-and-forget open -a "Messages"'
-cmd-alt-ctrl-shift-v = 'exec-and-forget open -a "Visual Studio Code"'
-cmd-alt-ctrl-shift-s = 'exec-and-forget open -a "System Settings"'
-cmd-alt-ctrl-shift-p = 'exec-and-forget open -a "Bitwarden"'
-cmd-alt-ctrl-shift-f = 'exec-and-forget open -a "Finder"'
-cmd-alt-ctrl-shift-r = 'exec-and-forget open -a "Preview"'
+cmd-alt-ctrl-shift-t = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "Ghostty"']
+cmd-alt-ctrl-shift-b = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "Google Chrome"']
+cmd-alt-ctrl-shift-d = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "Discord"']
+cmd-alt-ctrl-shift-m = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "Messages"']
+cmd-alt-ctrl-shift-v = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "Visual Studio Code"']
+cmd-alt-ctrl-shift-s = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "System Settings"']
+cmd-alt-ctrl-shift-p = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "Bitwarden"']
+cmd-alt-ctrl-shift-f = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "Finder"']
+cmd-alt-ctrl-shift-r = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "Preview"']
 
 # Focus Ghostty on the terminal workspace before opening the coding-agent
 # chooser in its most recently active attached tmux client. The upstream
@@ -82,41 +82,47 @@ cmd-alt-ctrl-shift-r = 'exec-and-forget open -a "Preview"'
 # agents waiting on us.
 cmd-alt-ctrl-shift-g = 'exec-and-forget /bin/bash -lc "CODING_AGENTS_TMUX_FOCUS_COMMAND=\"open -a Ghostty\" exec $HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-popup.sh --menu"'
 cmd-alt-ctrl-shift-q = 'exec-and-forget /bin/bash -lc "CODING_AGENTS_TMUX_FOCUS_COMMAND=\"open -a Ghostty\" exec $HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-popup.sh --menu --waiting"'
+cmd-alt-ctrl-shift-slash = 'exec-and-forget sketchybar --trigger aerospace_cheatsheet'
 
 # Work apps. These bindings are harmless when the apps are not installed.
-cmd-alt-ctrl-shift-l = 'exec-and-forget open -a "Slack"'
-cmd-alt-ctrl-shift-o = 'exec-and-forget open -a "Microsoft Outlook"'
-cmd-alt-ctrl-shift-c = 'exec-and-forget open -a "Microsoft Teams"'
+cmd-alt-ctrl-shift-l = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "Slack"']
+cmd-alt-ctrl-shift-o = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "Microsoft Outlook"']
+cmd-alt-ctrl-shift-c = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget open -a "Microsoft Teams"']
 # Re-run the preferred placement for currently-open work applications.
-cmd-alt-ctrl-shift-y = 'exec-and-forget /bin/bash -lc "\\\"$HOME/.config/aerospace/scripts/organize-work-apps.sh\\\""'
+cmd-alt-ctrl-shift-y = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'exec-and-forget /bin/bash -lc "\\\"$HOME/.config/aerospace/scripts/organize-work-apps.sh\\\""']
 
 # Enter temporary modes so agent and window commands do not consume more
 # global Hyper keys.
 cmd-alt-ctrl-shift-a = [
     'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=agent',
+    'exec-and-forget sketchybar --set aerospace_mode popup.drawing=off',
     'mode agent',
 ]
 cmd-alt-ctrl-shift-w = [
     'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=window',
+    'exec-and-forget sketchybar --set aerospace_mode popup.drawing=off',
     'mode window',
 ]
 
 # Fast workspace switching.
-cmd-alt-ctrl-shift-1 = 'workspace 1'
-cmd-alt-ctrl-shift-2 = 'workspace 2'
-cmd-alt-ctrl-shift-3 = 'workspace 3'
-cmd-alt-ctrl-shift-4 = 'workspace 4'
-cmd-alt-ctrl-shift-5 = 'workspace 5'
-cmd-alt-ctrl-shift-6 = 'workspace 6'
-cmd-alt-ctrl-shift-7 = 'workspace 7'
-cmd-alt-ctrl-shift-8 = 'workspace 8'
-cmd-alt-ctrl-shift-9 = 'workspace 9'
+cmd-alt-ctrl-shift-1 = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'workspace 1']
+cmd-alt-ctrl-shift-2 = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'workspace 2']
+cmd-alt-ctrl-shift-3 = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'workspace 3']
+cmd-alt-ctrl-shift-4 = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'workspace 4']
+cmd-alt-ctrl-shift-5 = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'workspace 5']
+cmd-alt-ctrl-shift-6 = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'workspace 6']
+cmd-alt-ctrl-shift-7 = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'workspace 7']
+cmd-alt-ctrl-shift-8 = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'workspace 8']
+cmd-alt-ctrl-shift-9 = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'workspace 9']
 
 # Press Hyper+A, then use a number to hot-switch to that one-based agent pane.
 # The mode remains active for repeated switching until Escape is pressed.
 [mode.agent.binding]
+cmd-alt-ctrl-shift-slash = 'exec-and-forget sketchybar --trigger aerospace_cheatsheet'
+
 esc = [
     'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main',
+    'exec-and-forget sketchybar --set aerospace_mode popup.drawing=off',
     'mode main',
 ]
 
@@ -134,8 +140,11 @@ c = 'exec-and-forget open -a "ChatGPT"'
 
 # Press Hyper+W, use as many commands as needed, then Escape.
 [mode.window.binding]
+cmd-alt-ctrl-shift-slash = 'exec-and-forget sketchybar --trigger aerospace_cheatsheet'
+
 esc = [
     'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main',
+    'exec-and-forget sketchybar --set aerospace_mode popup.drawing=off',
     'mode main',
 ]
 

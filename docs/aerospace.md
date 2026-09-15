@@ -58,6 +58,9 @@ The programmable keyboard supplies Hyper as Command+Option+Control+Shift.
 | Hyper+Y | Move open work apps to workspace 6 |
 | Hyper+1…9 | Switch workspace |
 | Hyper+W | Enter window-management mode |
+| Hyper+? | Show the cheatsheet for the current AeroSpace mode |
+
+Press Hyper+? at any time to open the mode-aware SketchyBar cheatsheet. In main mode it lists app, work-app, mode, and workspace shortcuts; in agent and window modes it lists the active mode's unmodified keys. Press Hyper+? again to hide it. Escape also hides it when leaving a temporary mode.
 
 In agent mode:
 
