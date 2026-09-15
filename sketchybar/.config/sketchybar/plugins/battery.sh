@@ -20,5 +20,22 @@ case "$level" in
   *)              icon="" ;;
 esac
 
-[[ "$battery_info" == *"AC Power"* ]] && icon=""
-sketchybar --set "$item" drawing=on icon="$icon" label="$percentage"
+if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
+  muted=0xffa5adcb
+  green=0xff638989
+  red=0xffce3a5b
+else
+  muted=0xff8c8fa1
+  green=0xff40a02b
+  red=0xffd20f39
+fi
+
+color="$muted"
+if [[ "$battery_info" == *"AC Power"* ]]; then
+  icon=""
+  color="$green"
+elif (( level <= 20 )); then
+  color="$red"
+fi
+
+sketchybar --set "$item" drawing=on icon="$icon" icon.color="$color" label="$percentage"

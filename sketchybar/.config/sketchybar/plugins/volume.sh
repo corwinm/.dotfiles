@@ -33,12 +33,23 @@ if ! [[ "$volume" =~ ^[0-9]+$ ]] || [[ "$muted" != "true" && "$muted" != "false"
   exit 0
 fi
 
+if defaults read -g AppleInterfaceStyle 2>/dev/null | grep -q '^Dark$'; then
+  muted_color=0xffa5adcb
+  warning_color=0xffcc7b6e
+else
+  muted_color=0xff8c8fa1
+  warning_color=0xfffe640b
+fi
+color="$muted_color"
+
 if [[ "$muted" == "true" ]]; then
   icon="󰝟"
   label="Muted"
+  color="$warning_color"
 elif [[ "$volume" -eq 0 ]]; then
   icon="󰝟"
   label="0%"
+  color="$warning_color"
 elif [[ "$volume" -lt 35 ]]; then
   icon="󰕿"
   label="${volume}%"
@@ -50,4 +61,4 @@ else
   label="${volume}%"
 fi
 
-sketchybar --set "$item" drawing=on icon="$icon" label="$label"
+sketchybar --set "$item" drawing=on icon="$icon" icon.color="$color" label="$label"
