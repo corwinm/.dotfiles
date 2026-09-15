@@ -22,4 +22,5 @@ brew "tree-sitter-cli"
 brew "zoxide"
 cask "ghostty"
 cask "font-sf-mono-nerd-font-ligaturized"
+cask "jomatsu/tap/aerokit", trusted: true
 cask "nikitabobko/tap/aerospace"

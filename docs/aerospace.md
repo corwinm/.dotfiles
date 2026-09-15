@@ -34,12 +34,21 @@ sketchybar --reload
 
 SketchyBar detects an existing process, so the Homebrew service and AeroSpace startup fallback will not create duplicate bars.
 
+## AeroKit window overview
+
+[AeroKit](https://github.com/jomatsu/aerokit) adds a Mission Control-style overlay without moving AeroSpace's tiled windows. Press Option+M for every window on the focused workspace or Option+A for the focused application's windows across workspaces. Select with the mouse, Return, or a displayed quick-select key; Escape dismisses the overlay. Option+Backtick opens its workspace switcher.
+
+Install it with `brew bundle`, launch AeroKit, and grant Screen Recording permission when prompted so the overlay can show live previews. Its workspace-change callback is chained after SketchyBar's callback so both integrations continue to update. Global shortcuts, snapshot exclusions, login behavior, and trackpad gestures can be changed from AeroKit's menu-bar settings.
+
 ## Bindings
 
 The programmable keyboard supplies Hyper as Command+Option+Control+Shift.
 
 | Shortcut | Action |
 | --- | --- |
+| Option+M | AeroKit overview for the focused workspace |
+| Option+A | AeroKit overview for the focused application |
+| Option+Backtick | AeroKit workspace switcher |
 | Hyper+T | Ghostty |
 | Hyper+B | Google Chrome |
 | Hyper+D | Discord |
