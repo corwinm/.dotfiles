@@ -86,7 +86,7 @@ In window-management mode:
 - Workspaces 6–9 use the secondary display when exactly two displays are attached and fall back to the main display otherwise.
 - New Chrome windows move to workspace 1; Ghostty windows move to 2; Discord, Messages, and ChatGPT windows move to 3; and Slack, Outlook, and Teams windows move to 6.
 - Apps without a routing rule, including Finder and Preview, open in the current workspace.
-- Inner gaps are 6 pixels and outer gaps are 8 pixels. A notchless external main display uses a 48-pixel top gap beneath SketchyBar, while the built-in display (matched by name) uses a 14-pixel top gap because its notch makes the native menu bar taller; any other display keeps the standard 8-pixel top gap.
+- Inner gaps are 14 pixels and outer gaps are 8 pixels. Because SketchyBar draws on all displays, every display reserves top space for the bar: the built-in display (matched by name) uses a 14-pixel top gap because its notch makes the native menu bar taller, while any other display uses a 48-pixel top gap (the fallback).
 - `on-focused-monitor-changed` moves the mouse to the lazy center of the newly focused monitor so the pointer follows focus across displays.
 
 ## Window borders
