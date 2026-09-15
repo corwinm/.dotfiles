@@ -13,6 +13,9 @@ after-startup-command = [
     # Draw a colored border around the focused window (JankyBorders). Styling
     # lives in ~/.config/borders/bordersrc; appearance.sh recolors it live.
     'exec-and-forget borders',
+    # Reconcile already-open work apps after login without routing future
+    # Outlook/Teams reminder or meeting windows.
+    'exec-and-forget /bin/bash -lc "sleep 2; \\\"$HOME/.config/aerospace/scripts/organize-work-apps.sh\\\""',
 ]
 exec-on-workspace-change = ['/bin/bash', '-c',
     'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
@@ -33,7 +36,7 @@ on-window-detected = [
     { if = 'test %{app-bundle-id} = com.google.Chrome', run = 'move-node-to-workspace 1' },
     { if = 'test %{app-bundle-id} = com.mitchellh.ghostty', run = 'move-node-to-workspace 2' },
     { if = 'test %{app-bundle-id} = com.hnc.Discord || test %{app-bundle-id} = com.apple.MobileSMS || test %{app-bundle-id} = com.openai.codex', run = 'move-node-to-workspace 3' },
-    { if = 'test %{app-bundle-id} = com.tinyspeck.slackmacgap || test %{app-bundle-id} = com.microsoft.Outlook || test %{app-bundle-id} = com.microsoft.teams2', run = 'move-node-to-workspace 6' },
+    { if = 'test %{app-bundle-id} = com.tinyspeck.slackmacgap', run = 'move-node-to-workspace 6' },
 ]
 
 # Keep 1–5 on the macOS main display. Put 6–9 on the second display when
@@ -84,6 +87,8 @@ cmd-alt-ctrl-shift-q = 'exec-and-forget /bin/bash -lc "CODING_AGENTS_TMUX_FOCUS_
 cmd-alt-ctrl-shift-l = 'exec-and-forget open -a "Slack"'
 cmd-alt-ctrl-shift-o = 'exec-and-forget open -a "Microsoft Outlook"'
 cmd-alt-ctrl-shift-c = 'exec-and-forget open -a "Microsoft Teams"'
+# Re-run the preferred placement for currently-open work applications.
+cmd-alt-ctrl-shift-y = 'exec-and-forget /bin/bash -lc "\\\"$HOME/.config/aerospace/scripts/organize-work-apps.sh\\\""'
 
 # Enter temporary modes so agent and window commands do not consume more
 # global Hyper keys.

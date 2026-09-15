@@ -55,6 +55,7 @@ The programmable keyboard supplies Hyper as Command+Option+Control+Shift.
 | Hyper+L | Slack |
 | Hyper+O | Microsoft Outlook |
 | Hyper+C | Microsoft Teams |
+| Hyper+Y | Move open work apps to workspace 6 |
 | Hyper+1…9 | Switch workspace |
 | Hyper+W | Enter window-management mode |
 
@@ -84,7 +85,8 @@ In window-management mode:
 - Accordion is the default layout, with a fixed horizontal orientation and `accordion-padding = 0`, so adjacent windows do not remain visible at the left and right edges.
 - Workspaces 1–5 are assigned to the macOS main display.
 - Workspaces 6–9 use the secondary display when exactly two displays are attached and fall back to the main display otherwise.
-- New Chrome windows move to workspace 1; Ghostty windows move to 2; Discord, Messages, and ChatGPT windows move to 3; and Slack, Outlook, and Teams windows move to 6.
+- New Chrome windows move to workspace 1; Ghostty windows move to 2; Discord, Messages, and ChatGPT windows move to 3; and Slack windows move to 6.
+- Outlook and Teams are not routed by `on-window-detected`, so reminder and meeting windows stay where macOS opens them. Already-open Slack, Outlook, and Teams windows are reconciled to workspace 6 at AeroSpace startup; Hyper+Y runs that reconciliation manually.
 - Apps without a routing rule, including Finder and Preview, open in the current workspace.
 - Inner gaps are 14 pixels and outer gaps are 8 pixels. Because SketchyBar draws on all displays, every display reserves top space for the bar: the built-in display (matched by name) uses a 14-pixel top gap because its notch makes the native menu bar taller, while any other display uses a 48-pixel top gap (the fallback).
 - `on-focused-monitor-changed` moves the mouse to the lazy center of the newly focused monitor so the pointer follows focus across displays.
