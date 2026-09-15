@@ -225,7 +225,31 @@ for sid in $(aerospace list-workspaces --all); do
       background.corner_radius=11 \
       background.border_width=0 \
       background.drawing=off \
-      click_script="aerospace workspace $sid"
+      popup.align=left \
+      popup.height=28 \
+      popup.background.color="$POPUP" \
+      popup.background.corner_radius=10 \
+      popup.background.border_width=1 \
+      popup.background.border_color="$BORDER" \
+      click_script="$CONFIG_DIR/plugins/workspace_menu.sh menu $sid"
+
+  for row in $(seq 1 20); do
+    sketchybar --add item "workspace_menu.$sid.$row" popup."space.$sid" \
+      --set "workspace_menu.$sid.$row" \
+        drawing=off \
+        icon.color="$BLUE" \
+        icon.width=22 \
+        icon.padding_left=10 \
+        icon.padding_right=6 \
+        label.color="$TEXT" \
+        label.width=360 \
+        label.align=left \
+        label.padding_left=0 \
+        label.padding_right=12 \
+        background.drawing=off
+  done
+  sketchybar --set "workspace_menu.$sid.1" script="$CONFIG_DIR/plugins/workspace_menu.sh"
+  sketchybar --subscribe "workspace_menu.$sid.1" mouse.exited.global
 done
 
 # A single hidden watcher updates all workspace items in one pass.
