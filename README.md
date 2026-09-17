@@ -47,6 +47,18 @@ stow borders
 
 See [`docs/aerospace.md`](docs/aerospace.md) for the trial bindings, SketchyBar integration, and setup notes.
 
+## Open code files in terminal Neovim (macOS)
+
+Install the small AppleScript launcher app:
+
+```sh
+./scripts/install-neovim-opener.sh
+```
+
+Opening a file creates a Neovim window in the most recently active tmux session. If no tmux client is attached, it opens Neovim in a fresh Ghostty window.
+
+To make it the default for a file type, select an example file in Finder, press **⌘I**, choose **Neovim (Terminal)** under **Open with**, and click **Change All…**.
+
 ## macOS settings
 
 Apply the preferred macOS Dock and menu bar settings on a new Mac:
