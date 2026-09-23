@@ -75,6 +75,15 @@ sketchybar --add event aerospace_mode_change
 sketchybar --add event aerospace_cheatsheet
 sketchybar --add event coding_agents_changed
 sketchybar --add event system_appearance_changed AppleInterfaceThemeChangedNotification
+sketchybar --add event screen_unlocked com.apple.screenIsUnlocked
+
+# Recover the bar window after sleep or unlocking from the screen saver.
+sketchybar --add item wake_watcher left \
+  --subscribe wake_watcher system_woke screen_unlocked \
+  --set wake_watcher \
+    drawing=off \
+    updates=on \
+    script="$CONFIG_DIR/plugins/wake.sh"
 
 sketchybar --add item appearance_watcher left \
   --subscribe appearance_watcher system_appearance_changed \
