@@ -79,7 +79,7 @@ sketchybar --add event screen_unlocked com.apple.screenIsUnlocked
 
 # Recover the bar window after sleep or unlocking from the screen saver.
 sketchybar --add item wake_watcher left \
-  --subscribe wake_watcher system_woke screen_unlocked \
+  --subscribe wake_watcher system_woke screen_unlocked display_change \
   --set wake_watcher \
     drawing=off \
     updates=on \
