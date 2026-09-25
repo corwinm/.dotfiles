@@ -33,8 +33,8 @@ case "$mode" in
     labels=("Focus coding-agent pane" "Open ChatGPT" "Return to main mode")
     ;;
   window)
-    keys=("H/J/K/L" "⇧H/J/K/L" "⌃H/J/K/L" "− / =" "/" "," "F" "R" "Tab" "1–9" "⇧1–9" "Esc")
-    labels=("Focus adjacent window" "Move window" "Join with neighbor" "Resize" "Tiles layout" "Accordion layout" "Float / tile" "Flatten layout" "Previous workspace" "Switch workspace" "Move window and follow" "Return to main mode")
+    keys=("H/J/K/L" "⇧H/J/K/L" "⌃H/J/K/L" "− / =" "/" "," "F" "R" "Tab" "1–9" "⇧1–9" "B" "Esc")
+    labels=("Focus adjacent window" "Move window" "Join with neighbor" "Resize" "Tiles layout" "Accordion layout" "Float / tile" "Flatten layout" "Previous workspace" "Switch workspace" "Move window and follow" "Reload SketchyBar" "Return to main mode")
     ;;
   *)
     mode="main"

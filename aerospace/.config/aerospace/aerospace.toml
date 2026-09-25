@@ -170,6 +170,8 @@ comma = 'layout --root accordion horizontal vertical'
 f = 'layout floating tiling'
 r = 'flatten-workspace-tree'
 tab = 'workspace-back-and-forth'
+# Reload SketchyBar if it goes missing after sleep or unlock.
+b = 'exec-and-forget sketchybar --reload'
 
 1 = 'workspace 1'
 2 = 'workspace 2'

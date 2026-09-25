@@ -81,6 +81,7 @@ In window-management mode:
 - `R` flattens the current workspace layout.
 - `Tab` switches to the previous workspace.
 - `1…9` switches workspace; `Shift+1…9` moves the focused window there and follows it.
+- `B` reloads SketchyBar, useful if the bar goes missing after sleep or unlock.
 - `Escape` returns to normal bindings.
 
 ## Workspace and layout behavior
