@@ -195,6 +195,10 @@ sketchybar --add item aerospace_cheatsheet_watcher left \
 sketchybar --subscribe aerospace_mode aerospace_mode_change
 
 batch=()
+# Hidden workspace menu rows are created last: every SketchyBar command slows
+# down as the item count grows, so adding these ~180 rows early would make
+# every later command in this file slower.
+workspace_rows=()
 for sid in $(aerospace list-workspaces --all); do
   if [[ "$sid" == "6" ]]; then
     workspace_items+=(workspace_separator)
@@ -239,7 +243,7 @@ for sid in $(aerospace list-workspaces --all); do
       click_script="$CONFIG_DIR/plugins/workspace_menu.sh menu $sid")
 
   for row in $(seq 1 20); do
-    batch+=(--add item "workspace_menu.$sid.$row" popup."space.$sid" \
+    workspace_rows+=(--add item "workspace_menu.$sid.$row" popup."space.$sid" \
       --set "workspace_menu.$sid.$row" \
         drawing=off \
         icon.color="$BLUE" \
@@ -253,8 +257,8 @@ for sid in $(aerospace list-workspaces --all); do
         label.padding_right=12 \
         background.drawing=off)
   done
-  batch+=(--set "workspace_menu.$sid.1" script="$CONFIG_DIR/plugins/workspace_menu.sh")
-  batch+=(--subscribe "workspace_menu.$sid.1" mouse.exited.global)
+  workspace_rows+=(--set "workspace_menu.$sid.1" script="$CONFIG_DIR/plugins/workspace_menu.sh")
+  workspace_rows+=(--subscribe "workspace_menu.$sid.1" mouse.exited.global)
 done
 sketchybar "${batch[@]}"
 
@@ -538,8 +542,10 @@ sketchybar --add bracket system_status "${status_items[@]}" \
 
 focused_workspace="$(aerospace list-workspaces --focused)"
 current_mode="$(aerospace list-modes --current)"
-sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$focused_workspace"
-sketchybar --trigger aerospace_mode_change MODE="$current_mode"
+sketchybar "${workspace_rows[@]}" \
+  --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$focused_workspace" \
+  --trigger aerospace_mode_change MODE="$current_mode" \
+  --hotload on \
+  --update
+
 NAME=coding-agents "$CONFIG_DIR/plugins/coding_agents.sh"
-sketchybar --hotload on
-sketchybar --update
