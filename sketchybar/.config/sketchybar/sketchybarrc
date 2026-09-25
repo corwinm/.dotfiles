@@ -194,11 +194,9 @@ sketchybar --add item aerospace_cheatsheet_watcher left \
 
 sketchybar --subscribe aerospace_mode aerospace_mode_change
 
+# Window rows for the right-click workspace menus are created on demand by
+# plugins/workspace_menu.sh, which keeps the bar small and reloads fast.
 batch=()
-# Hidden workspace menu rows are created last: every SketchyBar command slows
-# down as the item count grows, so adding these ~180 rows early would make
-# every later command in this file slower.
-workspace_rows=()
 for sid in $(aerospace list-workspaces --all); do
   if [[ "$sid" == "6" ]]; then
     workspace_items+=(workspace_separator)
@@ -241,24 +239,6 @@ for sid in $(aerospace list-workspaces --all); do
       popup.background.border_width=1 \
       popup.background.border_color="$BORDER" \
       click_script="$CONFIG_DIR/plugins/workspace_menu.sh menu $sid")
-
-  for row in $(seq 1 20); do
-    workspace_rows+=(--add item "workspace_menu.$sid.$row" popup."space.$sid" \
-      --set "workspace_menu.$sid.$row" \
-        drawing=off \
-        icon.color="$BLUE" \
-        icon.width=22 \
-        icon.padding_left=10 \
-        icon.padding_right=6 \
-        label.color="$TEXT" \
-        label.width=360 \
-        label.align=left \
-        label.padding_left=0 \
-        label.padding_right=12 \
-        background.drawing=off)
-  done
-  workspace_rows+=(--set "workspace_menu.$sid.1" script="$CONFIG_DIR/plugins/workspace_menu.sh")
-  workspace_rows+=(--subscribe "workspace_menu.$sid.1" mouse.exited.global)
 done
 sketchybar "${batch[@]}"
 
@@ -542,7 +522,7 @@ sketchybar --add bracket system_status "${status_items[@]}" \
 
 focused_workspace="$(aerospace list-workspaces --focused)"
 current_mode="$(aerospace list-modes --current)"
-sketchybar "${workspace_rows[@]}" \
+sketchybar \
   --trigger aerospace_workspace_change FOCUSED_WORKSPACE="$focused_workspace" \
   --trigger aerospace_mode_change MODE="$current_mode" \
   --hotload on \
