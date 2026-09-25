@@ -5,7 +5,7 @@
 # the bar window is no longer composited; `hidden=off` does not help, while
 # re-assigning the display target forces the window to be recreated.
 case "${SENDER:-}" in
-  system_woke | screen_unlocked | display_change) ;;
+  system_woke | screen_unlocked) ;;
   *) exit 0 ;;
 esac
 
