@@ -105,9 +105,10 @@ sketchybar --add item apple_menu left \
 apple_menu_items=(about settings activity lock)
 apple_menu_icons=("󰋼" "" "󰄪" "")
 apple_menu_labels=("About This Mac" "System Settings" "Activity Monitor" "Lock Screen")
+batch=()
 for i in "${!apple_menu_items[@]}"; do
   action="${apple_menu_items[$i]}"
-  sketchybar --add item "apple.$action" popup.apple_menu \
+  batch+=(--add item "apple.$action" popup.apple_menu \
     --set "apple.$action" \
       icon="${apple_menu_icons[$i]}" \
       icon.color="$PINK" \
@@ -122,9 +123,10 @@ for i in "${!apple_menu_items[@]}"; do
       label.padding_left=4 \
       label.padding_right=10 \
       background.drawing=off \
-      click_script="$CONFIG_DIR/plugins/apple_menu.sh $action"
+      click_script="$CONFIG_DIR/plugins/apple_menu.sh $action")
 done
-sketchybar --subscribe apple.about mouse.exited.global
+batch+=(--subscribe apple.about mouse.exited.global)
+sketchybar "${batch[@]}"
 
 # Show only populated workspaces (plus the focused workspace when empty).
 # A divider separates personal workspaces 1–5 from work workspaces 6–9.
@@ -159,8 +161,9 @@ sketchybar --add item aerospace_mode left \
 
 # Hidden rows for the mode-aware Hyper+? cheatsheet. The script enables only
 # the rows relevant to the currently active AeroSpace mode.
+batch=()
 for i in $(seq 1 18); do
-  sketchybar --add item "aerospace_cheatsheet.$i" popup.aerospace_mode \
+  batch+=(--add item "aerospace_cheatsheet.$i" popup.aerospace_mode \
     --set "aerospace_cheatsheet.$i" \
       drawing=off \
       icon.color="$BLUE" \
@@ -173,13 +176,14 @@ for i in $(seq 1 18); do
       label.align=left \
       label.padding_left=0 \
       label.padding_right=12 \
-      background.drawing=off
+      background.drawing=off)
 done
 
 # The first popup row receives SketchyBar's global mouse-exit event, matching
 # the dismissal behavior of the other native popups.
-sketchybar --set aerospace_cheatsheet.1 script="$CONFIG_DIR/plugins/aerospace_cheatsheet.sh"
-sketchybar --subscribe aerospace_cheatsheet.1 mouse.exited.global
+batch+=(--set aerospace_cheatsheet.1 script="$CONFIG_DIR/plugins/aerospace_cheatsheet.sh")
+batch+=(--subscribe aerospace_cheatsheet.1 mouse.exited.global)
+sketchybar "${batch[@]}"
 
 sketchybar --add item aerospace_cheatsheet_watcher left \
   --subscribe aerospace_cheatsheet_watcher aerospace_cheatsheet \
@@ -190,10 +194,11 @@ sketchybar --add item aerospace_cheatsheet_watcher left \
 
 sketchybar --subscribe aerospace_mode aerospace_mode_change
 
+batch=()
 for sid in $(aerospace list-workspaces --all); do
   if [[ "$sid" == "6" ]]; then
     workspace_items+=(workspace_separator)
-    sketchybar --add item workspace_separator left \
+    batch+=(--add item workspace_separator left \
       --set workspace_separator \
         width=1 \
         icon.drawing=off \
@@ -202,12 +207,12 @@ for sid in $(aerospace list-workspaces --all); do
         background.height=18 \
         background.corner_radius=0 \
         background.border_width=0 \
-        background.drawing=on
+        background.drawing=on)
   fi
 
   item="space.$sid"
   workspace_items+=("$item")
-  sketchybar --add item "$item" left \
+  batch+=(--add item "$item" left \
     --set "$item" \
       drawing=off \
       padding_left=2 \
@@ -231,10 +236,10 @@ for sid in $(aerospace list-workspaces --all); do
       popup.background.corner_radius=10 \
       popup.background.border_width=1 \
       popup.background.border_color="$BORDER" \
-      click_script="$CONFIG_DIR/plugins/workspace_menu.sh menu $sid"
+      click_script="$CONFIG_DIR/plugins/workspace_menu.sh menu $sid")
 
   for row in $(seq 1 20); do
-    sketchybar --add item "workspace_menu.$sid.$row" popup."space.$sid" \
+    batch+=(--add item "workspace_menu.$sid.$row" popup."space.$sid" \
       --set "workspace_menu.$sid.$row" \
         drawing=off \
         icon.color="$BLUE" \
@@ -246,11 +251,12 @@ for sid in $(aerospace list-workspaces --all); do
         label.align=left \
         label.padding_left=0 \
         label.padding_right=12 \
-        background.drawing=off
+        background.drawing=off)
   done
-  sketchybar --set "workspace_menu.$sid.1" script="$CONFIG_DIR/plugins/workspace_menu.sh"
-  sketchybar --subscribe "workspace_menu.$sid.1" mouse.exited.global
+  batch+=(--set "workspace_menu.$sid.1" script="$CONFIG_DIR/plugins/workspace_menu.sh")
+  batch+=(--subscribe "workspace_menu.$sid.1" mouse.exited.global)
 done
+sketchybar "${batch[@]}"
 
 # A single hidden watcher updates all workspace items in one pass.
 sketchybar --add item workspace_watcher left \
@@ -288,9 +294,10 @@ sketchybar --add item front_app left \
 front_app_actions=(new settings hide quit)
 front_app_icons=("󰐕" "" "󰖰" "󰅖")
 front_app_labels=("New Window    ⌘N" "Settings      ⌘," "Hide          ⌘H" "Quit          ⌘Q")
+batch=()
 for i in "${!front_app_actions[@]}"; do
   action="${front_app_actions[$i]}"
-  sketchybar --add item "front-app.$action" popup.front_app \
+  batch+=(--add item "front-app.$action" popup.front_app \
     --set "front-app.$action" \
       icon="${front_app_icons[$i]}" \
       icon.color="$CREAM" \
@@ -305,9 +312,10 @@ for i in "${!front_app_actions[@]}"; do
       label.padding_left=4 \
       label.padding_right=10 \
       background.drawing=off \
-      click_script="$CONFIG_DIR/plugins/front_app_menu.sh $action"
+      click_script="$CONFIG_DIR/plugins/front_app_menu.sh $action")
 done
-sketchybar --subscribe front-app.new mouse.exited.global
+batch+=(--subscribe front-app.new mouse.exited.global)
+sketchybar "${batch[@]}"
 
 # Apple controls, workspace state, and application context share a single
 # surface, matching the consolidated system capsule on the right.
@@ -353,8 +361,9 @@ sketchybar --add item date right \
     click_script="$CONFIG_DIR/plugins/calendar.sh toggle" \
     script="$CONFIG_DIR/plugins/date.sh"
 
+batch=()
 for row in {0..7}; do
-  sketchybar --add item "calendar.$row" popup.date \
+  batch+=(--add item "calendar.$row" popup.date \
     --set "calendar.$row" \
       width=178 \
       icon.drawing=off \
@@ -365,11 +374,12 @@ for row in {0..7}; do
       label.padding_right=9 \
       background.drawing=off \
       script="$CONFIG_DIR/plugins/calendar.sh" \
-    --subscribe "calendar.$row" mouse.scrolled
+    --subscribe "calendar.$row" mouse.scrolled)
 done
 
 # Dismiss the popup after the pointer leaves the calendar or bar.
-sketchybar --subscribe calendar.0 mouse.exited.global
+batch+=(--subscribe calendar.0 mouse.exited.global)
+sketchybar "${batch[@]}"
 
 sketchybar --add item volume right \
   --subscribe volume volume_change mouse.clicked mouse.scrolled \
@@ -473,8 +483,9 @@ sketchybar --add item coding-agents right \
     click_script="$CONFIG_DIR/plugins/agent_menu.sh toggle" \
     script="$CONFIG_DIR/plugins/coding_agents.sh"
 
+batch=()
 for index in {1..9}; do
-  sketchybar --add item "coding-agent.$index" popup.coding-agents \
+  batch+=(--add item "coding-agent.$index" popup.coding-agents \
     --set "coding-agent.$index" \
       drawing=off \
       icon="$index" \
@@ -487,8 +498,9 @@ for index in {1..9}; do
       label.padding_left=4 \
       label.padding_right=10 \
       background.drawing=off \
-      click_script="$CONFIG_DIR/plugins/agent_menu.sh switch $index"
+      click_script="$CONFIG_DIR/plugins/agent_menu.sh switch $index")
 done
+sketchybar "${batch[@]}"
 
 sketchybar --add item coding-agent.chooser popup.coding-agents \
   --set coding-agent.chooser \
