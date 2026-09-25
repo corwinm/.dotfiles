@@ -45,7 +45,7 @@ fi
 close_menus
 
 # Must match the number of popup rows created per workspace in sketchybarrc.
-max_rows=12
+max_rows=20
 
 windows=()
 while IFS= read -r line; do
