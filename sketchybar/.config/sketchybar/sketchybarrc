@@ -238,7 +238,7 @@ for sid in $(aerospace list-workspaces --all); do
       popup.background.border_color="$BORDER" \
       click_script="$CONFIG_DIR/plugins/workspace_menu.sh menu $sid")
 
-  for row in $(seq 1 20); do
+  for row in $(seq 1 12); do
     batch+=(--add item "workspace_menu.$sid.$row" popup."space.$sid" \
       --set "workspace_menu.$sid.$row" \
         drawing=off \
