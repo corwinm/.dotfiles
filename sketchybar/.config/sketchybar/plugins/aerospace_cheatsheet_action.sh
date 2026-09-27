@@ -40,6 +40,7 @@ case "$mode:$index" in
   window:7) aerospace flatten-workspace-tree ;;
   window:8) aerospace workspace-back-and-forth ;;
   window:11) sketchybar --reload ;;
-  window:12) aerospace mode main; sketchybar --trigger aerospace_mode_change MODE=main ;;
+  window:12) "$HOME/.config/aerospace/scripts/restart-borders.sh" ;;
+  window:13) aerospace mode main; sketchybar --trigger aerospace_mode_change MODE=main ;;
   *) printf 'No action configured for %s:%s\n' "$mode" "$index" >&2; exit 1 ;;
 esac

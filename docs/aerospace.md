@@ -82,6 +82,7 @@ In window-management mode:
 - `Tab` switches to the previous workspace.
 - `1…9` switches workspace; `Shift+1…9` moves the focused window there and follows it.
 - `B` reloads SketchyBar, useful if the bar goes missing after sleep or unlock.
+- `Shift+B` restarts JankyBorders, releasing CoreAnimation memory retained over long uptimes.
 - `Escape` returns to normal bindings.
 
 ## Workspace and layout behavior

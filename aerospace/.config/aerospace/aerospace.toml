@@ -170,8 +170,9 @@ comma = 'layout --root accordion horizontal vertical'
 f = 'layout floating tiling'
 r = 'flatten-workspace-tree'
 tab = 'workspace-back-and-forth'
-# Reload SketchyBar if it goes missing after sleep or unlock.
+# Reload UI helpers if they go missing or retain resources after long uptimes.
 b = 'exec-and-forget sketchybar --reload'
+shift-b = 'exec-and-forget /bin/bash -lc "\"$HOME/.config/aerospace/scripts/restart-borders.sh\""'
 
 1 = 'workspace 1'
 2 = 'workspace 2'
