@@ -47,6 +47,10 @@ stow borders
 
 See [`docs/aerospace.md`](docs/aerospace.md) for the trial bindings, SketchyBar integration, and setup notes.
 
+For machines without Neovim, an optional standalone Vim config is available with
+`stow vim`, or by copying `vim/.vimrc` to `~/.vimrc` without Stow. See
+[`docs/vim.md`](docs/vim.md) for setup and keybindings.
+
 ## Open code files in terminal Neovim (macOS)
 
 Install the small AppleScript launcher app:
