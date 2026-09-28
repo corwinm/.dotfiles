@@ -65,11 +65,11 @@ Press Hyper+? at any time to open the mode-aware SketchyBar cheatsheet. In main 
 In agent mode:
 
 - `1…9` focuses Ghostty and switches to that one-based coding-agent pane in the plugin's stable target order.
-- `C` opens ChatGPT.
-- `T` opens T3 Code.
+- `C` opens ChatGPT and returns to normal bindings.
+- `T` opens T3 Code and returns to normal bindings.
 - `Escape` returns to normal bindings.
 
-The mode remains active after switching or opening an agent app, so several agents can be visited in succession without pressing Hyper+A again.
+Number-key switching keeps agent mode active, so several agents can be visited in succession without pressing Hyper+A again. Opening ChatGPT or T3 Code exits agent mode and dismisses the cheatsheet.
 
 In window-management mode:
 

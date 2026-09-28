@@ -116,7 +116,7 @@ cmd-alt-ctrl-shift-8 = ['exec-and-forget sketchybar --set aerospace_mode popup.d
 cmd-alt-ctrl-shift-9 = ['exec-and-forget sketchybar --set aerospace_mode popup.drawing=off', 'workspace 9']
 
 # Press Hyper+A, then use a number to hot-switch to that one-based agent pane.
-# The mode remains active for repeated switching until Escape is pressed.
+# Number switching stays in agent mode; app shortcuts return to main mode.
 [mode.agent.binding]
 cmd-alt-ctrl-shift-slash = 'exec-and-forget sketchybar --trigger aerospace_cheatsheet'
 
@@ -126,8 +126,18 @@ esc = [
     'mode main',
 ]
 
-c = 'exec-and-forget open -a "ChatGPT"'
-t = 'exec-and-forget open -a "T3 Code (Alpha)"'
+c = [
+    'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main',
+    'exec-and-forget sketchybar --set aerospace_mode popup.drawing=off',
+    'mode main',
+    'exec-and-forget open -a "ChatGPT"',
+]
+t = [
+    'exec-and-forget sketchybar --trigger aerospace_mode_change MODE=main',
+    'exec-and-forget sketchybar --set aerospace_mode popup.drawing=off',
+    'mode main',
+    'exec-and-forget open -a "T3 Code (Alpha)"',
+]
 
 1 = 'exec-and-forget /bin/bash -lc "CODING_AGENTS_TMUX_FOCUS_COMMAND=\"open -a Ghostty\" exec $HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-switch-index.sh 1"'
 2 = 'exec-and-forget /bin/bash -lc "CODING_AGENTS_TMUX_FOCUS_COMMAND=\"open -a Ghostty\" exec $HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-switch-index.sh 2"'
