@@ -118,16 +118,6 @@ eval "$(zoxide init zsh)"
 # Use zoxide for cd
 alias cd=z
 
-if [ -f "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ]; then
-  export NVM_DIR="$HOME/.nvm"
-    [ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ] && \. "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" # This loads nvm
-    [ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ] && \. "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" # This loads nvm bash_completion
-else 
-  export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
 # Added by arashi installer
 export PATH="$HOME/.arashi/bin:$PATH"
 
@@ -179,8 +169,21 @@ case ":$PATH:" in
 esac
 # pnpm end
 
-# Vite+ bin (https://viteplus.dev)
-. "$HOME/.vite-plus/env"
+# Prefer Vite+; load nvm only if Vite+ setup or its executable fails.
+if [[ -r "$HOME/.vite-plus/env" ]] &&
+   source "$HOME/.vite-plus/env" &&
+   command vp --version >/dev/null 2>&1; then
+  : # Vite+ is ready; leave nvm unloaded.
+else
+  export NVM_DIR="$HOME/.nvm"
+  if [[ -s "$HOMEBREW_PREFIX/opt/nvm/nvm.sh" ]]; then
+    source "$HOMEBREW_PREFIX/opt/nvm/nvm.sh"
+    [[ -s "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm" ]] && source "$HOMEBREW_PREFIX/opt/nvm/etc/bash_completion.d/nvm"
+  else
+    [[ -s "$NVM_DIR/nvm.sh" ]] && source "$NVM_DIR/nvm.sh"
+    [[ -s "$NVM_DIR/bash_completion" ]] && source "$NVM_DIR/bash_completion"
+  fi
+fi
 
 # >>> arashi shell integration >>>
 eval "$(command arashi shell init zsh)"
