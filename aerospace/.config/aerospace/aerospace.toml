@@ -127,6 +127,7 @@ esc = [
 ]
 
 c = 'exec-and-forget open -a "ChatGPT"'
+t = 'exec-and-forget open -a "T3 Code (Alpha)"'
 
 1 = 'exec-and-forget /bin/bash -lc "CODING_AGENTS_TMUX_FOCUS_COMMAND=\"open -a Ghostty\" exec $HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-switch-index.sh 1"'
 2 = 'exec-and-forget /bin/bash -lc "CODING_AGENTS_TMUX_FOCUS_COMMAND=\"open -a Ghostty\" exec $HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-switch-index.sh 2"'

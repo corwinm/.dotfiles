@@ -66,9 +66,10 @@ In agent mode:
 
 - `1…9` focuses Ghostty and switches to that one-based coding-agent pane in the plugin's stable target order.
 - `C` opens ChatGPT.
+- `T` opens T3 Code.
 - `Escape` returns to normal bindings.
 
-The mode remains active after switching or opening ChatGPT, so several agent panes can be visited in succession without pressing Hyper+A again.
+The mode remains active after switching or opening an agent app, so several agents can be visited in succession without pressing Hyper+A again.
 
 In window-management mode:
 

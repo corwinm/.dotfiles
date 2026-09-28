@@ -29,8 +29,8 @@ fi
 
 case "$mode" in
   agent)
-    keys=("1–9" "C" "Esc")
-    labels=("Focus coding-agent pane" "Open ChatGPT" "Return to main mode")
+    keys=("1–9" "C" "T" "Esc")
+    labels=("Focus coding-agent pane" "Open ChatGPT" "Open T3 Code" "Return to main mode")
     ;;
   window)
     keys=("H/J/K/L" "⇧H/J/K/L" "⌃H/J/K/L" "− / =" "/" "," "F" "R" "Tab" "1–9" "⇧1–9" "B" "⇧B" "Esc")

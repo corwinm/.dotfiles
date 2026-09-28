@@ -29,7 +29,8 @@ case "$mode:$index" in
   main:17) aerospace workspace 1 ;;
   agent:0) "$HOME/.tmux/plugins/coding-agents-tmux/integrations/external/focus-and-switch-index.sh" 1 ;;
   agent:1) open -a "ChatGPT" ;;
-  agent:2) aerospace mode main; sketchybar --trigger aerospace_mode_change MODE=main ;;
+  agent:2) open -a "T3 Code (Alpha)" ;;
+  agent:3) aerospace mode main; sketchybar --trigger aerospace_mode_change MODE=main ;;
   window:0) aerospace focus left ;;
   window:1) aerospace move left ;;
   window:2) aerospace join-with left ;;

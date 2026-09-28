@@ -86,6 +86,7 @@ grep -Fq -- 'CODING_AGENTS_TMUX_FOCUS_COMMAND' "$repo_root/aerospace/.config/aer
 grep -Fq -- 'focus-and-popup.sh' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- 'cmd-alt-ctrl-shift-a' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- '[mode.agent.binding]' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
+grep -Fq -- 't = '\''exec-and-forget open -a "T3 Code (Alpha)"'\''' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- 'focus-and-switch-index.sh 1' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- 'focus-and-switch-index.sh 9' "$repo_root/aerospace/.config/aerospace/aerospace.toml"
 grep -Fq -- 'coding_agents_changed' "$repo_root/sketchybar/.config/sketchybar/sketchybarrc"
