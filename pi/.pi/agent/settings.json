@@ -16,8 +16,7 @@
     "npm:@gotgenes/pi-permission-system",
     "npm:pi-system-theme"
   ],
-  "theme": "catppuccin-latte",
-  "lastChangelogVersion": "0.87.1",
+  "lastChangelogVersion": "1.0.4",
   "subagents": {
     "defaultThinking": "medium",
     "agentOverrides": {
