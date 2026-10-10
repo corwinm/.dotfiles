@@ -1,5 +1,9 @@
 .DS_Store
+node_modules/
 github-copilot
+pi/.pi/agent/bin/
+pi/.pi/agent/install/
+pi/.pi/agent/pi-subagents/last-seen-version.json
 pi/.pi/agent/auth.json
 pi/.pi/agent/trust.json
 pi/.pi/agent/models-store.json

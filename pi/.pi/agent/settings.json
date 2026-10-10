@@ -1,8 +1,7 @@
 {
   "defaultProvider": "openai-codex",
-  "defaultModel": "gpt-5.6-sol",
-  "defaultThinkingLevel": "medium",
-  "hideThinkingBlock": false,
+  "defaultModel": "gpt-6.1-sol",
+  "theme": "catppuccin-latte/catppuccin-macchiato",
   "packages": [
     "npm:@sherif-fanous/pi-catppuccin",
     "npm:pi-web-access",
@@ -13,10 +12,9 @@
     "npm:@haphazarddev/pi-copy-code-block",
     "npm:@haphazarddev/pi-interactive-code-review",
     "npm:@haphazarddev/pi-background-bash",
-    "npm:@gotgenes/pi-permission-system",
-    "npm:pi-system-theme"
+    "npm:@gotgenes/pi-permission-system"
   ],
-  "lastChangelogVersion": "1.0.4",
+  "lastChangelogVersion": "1.1.0",
   "subagents": {
     "defaultThinking": "medium",
     "agentOverrides": {
@@ -24,10 +22,10 @@
         "thinking": "low"
       },
       "worker": {
-        "thinking": "medium"
+        "thinking": "high"
       },
       "reviewer": {
-        "thinking": "medium"
+        "thinking": "high"
       },
       "planner": {
         "thinking": "high"
