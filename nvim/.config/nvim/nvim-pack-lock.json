@@ -8,6 +8,10 @@
       "rev": "e954496f8ef22904e8a84f5078f4a110fdc7a0d3",
       "src": "https://github.com/b0o/SchemaStore.nvim"
     },
+    "atlas.nvim": {
+      "rev": "fb40953462ff922c1084f1338072588c6e0eb0bf",
+      "src": "https://github.com/emrearmagan/atlas.nvim"
+    },
     "auto-save.nvim": {
       "rev": "979b6c82f60cfa80f4cf437d77446d0ded0addf0",
       "src": "https://github.com/Pocco81/auto-save.nvim"
