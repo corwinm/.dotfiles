@@ -9,6 +9,8 @@ auto-reload-config = true
 # Run SketchyBar with AeroSpace and tell it when the focused workspace changes.
 # SketchyBar ignores this startup command when it is already running.
 after-startup-command = [
+    # Explicitly apply the default to workspace 1, which can start tiled.
+    'layout --workspace 1 --root h_accordion',
     'exec-and-forget sketchybar',
     # Draw a colored border around the focused window (JankyBorders). Styling
     # lives in ~/.config/borders/bordersrc; appearance.sh recolors it live.

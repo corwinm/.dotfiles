@@ -88,7 +88,7 @@ In window-management mode:
 
 ## Workspace and layout behavior
 
-- Accordion is the default layout, with a fixed horizontal orientation and `accordion-padding = 0`, so adjacent windows do not remain visible at the left and right edges.
+- Accordion is the default layout, with a fixed horizontal orientation and `accordion-padding = 0`, so adjacent windows do not remain visible at the left and right edges. A startup command explicitly sets workspace 1 to horizontal accordion to guard against it starting tiled.
 - Workspaces 1–5 are assigned to the macOS main display.
 - Workspaces 6–9 use the secondary display when exactly two displays are attached and fall back to the main display otherwise.
 - New Chrome windows move to workspace 1; Ghostty windows move to 2; Discord, Messages, and ChatGPT windows move to 3; and Slack windows move to 6.
